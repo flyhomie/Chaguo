@@ -1,0 +1,17 @@
+{
+  "short_name": "Chaguo2027",
+  "name": "Chaguo 2027 - Decentralized Voter Guide & App (PWA/APK)",
+  "description": "Unstoppable, offline-first Kenyan civic voter guide, candidate dossier platform, and decentralized evidence vault.",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#09090b",
+  "theme_color": "#dc2626",
+  "display": "standalone",
+  "orientation": "portrait"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Chaguo",
+  "description": "Kenyan voter decision guide and candidate evaluation tool for identifying voting records on Finance Bills 2024/2025, political party ties, and independent candidates.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
