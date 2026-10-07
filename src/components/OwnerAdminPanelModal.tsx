@@ -272,6 +272,7 @@ export const OwnerAdminPanelModal: React.FC<OwnerAdminPanelModalProps> = ({
                         <img
                           src={candidate.photoUrl}
                           alt={candidate.name}
+                          referrerPolicy="no-referrer"
                           className="w-14 h-14 rounded-xl object-cover border-2 border-neutral-700 shrink-0 shadow-xs"
                         />
                       ) : (
@@ -426,7 +427,7 @@ export const OwnerAdminPanelModal: React.FC<OwnerAdminPanelModalProps> = ({
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
                         {candidate.photoUrl ? (
-                          <img src={candidate.photoUrl} alt={candidate.name} className="w-10 h-10 rounded-lg object-cover border shrink-0" />
+                          <img src={candidate.photoUrl} alt={candidate.name} referrerPolicy="no-referrer" className="w-10 h-10 rounded-lg object-cover border shrink-0" />
                         ) : (
                           <DemonicAvatar seed={candidate.id} name={candidate.name} tagColor={candidate.tagColor} size="xs" />
                         )}
@@ -637,8 +638,8 @@ export const OwnerAdminPanelModal: React.FC<OwnerAdminPanelModalProps> = ({
                   <img
                     src={filePreview || photoUrlInput}
                     alt="Preview"
+                    referrerPolicy="no-referrer"
                     className="w-24 h-24 rounded-2xl object-cover border-2 border-neutral-900 shadow-md"
-                    onError={() => alert('Unable to load photo preview from URL. Please check the link.')}
                   />
                 ) : (
                   <DemonicAvatar seed={photoCandidate.id} name={photoCandidate.name} tagColor={photoCandidate.tagColor} size="lg" />

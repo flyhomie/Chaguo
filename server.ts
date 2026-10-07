@@ -3,13 +3,19 @@ import path from "path";
 import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
 import { createServer as createViteServer } from "vite";
+import { fileURLToPath } from "url";
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+app.use(express.static(path.resolve(__dirname, "public")));
+app.use("/images", express.static(path.resolve(__dirname, "public/images")));
 
 // Initialize Gemini client lazily/safely
 let aiClient: GoogleGenAI | null = null;

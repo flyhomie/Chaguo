@@ -60,7 +60,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "5th President of the Republic of Kenya. Former Deputy President, Minister for Agriculture, and MP for Eldoret North.",
     termInOffice: "2022 - Present",
     keyPositionsHeld: ["President of Kenya", "Deputy President of Kenya", "Minister for Agriculture", "MP Eldoret North"],
-    photoUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/exec-1.jpg"
   },
   {
     id: "exec-2",
@@ -113,7 +113,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Deputy President of Kenya. Professor of Law, former Cabinet Secretary for Interior, Senator for Tharaka Nithi, and Senate Majority Leader.",
     termInOffice: "2024 - Present (DP) / 2022 - 2024 (CS Interior)",
     keyPositionsHeld: ["Deputy President", "CS for Interior & National Administration", "Senator Tharaka Nithi"],
-    photoUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/exec-2.jpg"
   },
   {
     id: "exec-3",
@@ -163,7 +163,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Former Deputy President of Kenya and former MP for Mathira Constituency.",
     termInOffice: "2022 - 2024 (Impeached)",
     keyPositionsHeld: ["Deputy President of Kenya", "MP Mathira"],
-    photoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/exec-3.jpg"
   },
   {
     id: "exec-4",
@@ -206,7 +206,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Former Prime Minister of Kenya (2008-2013), Party Leader of ODM, and African Union Commission Chair candidate.",
     termInOffice: "1992 - Present (Public Service)",
     keyPositionsHeld: ["Prime Minister of Kenya", "Minister for Energy", "MP Lang'ata"],
-    photoUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/exec-4.jpg"
   },
   {
     id: "exec-5",
@@ -249,7 +249,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Former Vice President of Kenya (2008-2013), Minister for Foreign Affairs, and Wiper Party Leader.",
     termInOffice: "1985 - Present",
     keyPositionsHeld: ["Vice President of Kenya", "Minister for Foreign Affairs", "MP Mwingi North"],
-    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/exec-5.jpg"
   },
   {
     id: "exec-6",
@@ -269,7 +269,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     keyPositionsHeld: ["Roots Party Presidential Candidate"],
     ties: { uhuru: false, ruto: false, gachagua: false, details: "Independent third-force political leader." },
     votes: { financeBill2024: "NO", financeBill2025: "NO", notes2024: "Vocal public opposition.", notes2025: "Public campaigner against taxation." },
-    photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/exec-6.jpg"
   },
 
   // ==========================================
@@ -297,7 +297,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Prime Cabinet Secretary of Kenya and CS Foreign Affairs.",
     termInOffice: "2022 - Present",
     keyPositionsHeld: ["Prime Cabinet Secretary", "Vice President", "Deputy Prime Minister", "Minister for Finance"],
-    photoUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/cs-1.jpg"
   },
   {
     id: "cs-2",
@@ -321,7 +321,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "CS National Treasury, former Nominated MP, Suba South MP, and ODM National Chairman.",
     termInOffice: "2024 - Present (CS Treasury) / 2008 - 2024 (MP)",
     keyPositionsHeld: ["CS National Treasury", "Leader of Minority Party", "MP Suba South"],
-    photoUrl: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/cs-2.jpg"
   },
   {
     id: "cs-3",
@@ -346,7 +346,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "CS Mining & Blue Economy, former 1st Governor of Mombasa County (2013-2022) and MP Kisauni.",
     termInOffice: "2024 - Present (CS) / 2013 - 2022 (Governor)",
     keyPositionsHeld: ["CS Mining & Blue Economy", "Governor Mombasa County", "MP Kisauni"],
-    photoUrl: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/cs-3.jpg"
   },
   {
     id: "cs-4",
@@ -371,7 +371,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "CS Cooperatives & MSMEs, former Chairman Council of Governors, Governor Kakamega, and Minister for Planning.",
     termInOffice: "2024 - Present (CS) / 2013 - 2022 (Governor)",
     keyPositionsHeld: ["CS Cooperatives & MSMEs", "Chairman Council of Governors", "Governor Kakamega"],
-    photoUrl: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/cs-4.jpg"
   },
   {
     id: "cs-5",
@@ -396,7 +396,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "CS Energy & Petroleum, former MP for Ugunja and Leader of Minority Party.",
     termInOffice: "2024 - Present (CS) / 2013 - 2024 (MP)",
     keyPositionsHeld: ["CS Energy & Petroleum", "Leader of Minority Party", "MP Ugunja"],
-    photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/cs-5.jpg"
   },
   {
     id: "cs-6",
@@ -417,7 +417,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "CS Sports & Creative Economy, former CS Roads & Transport, and 2-term Senator for Elgeyo Marakwet.",
     termInOffice: "2022 - Present",
     keyPositionsHeld: ["CS Youth Affairs & Sports", "CS Roads & Transport", "Senate Majority Leader"],
-    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/cs-6.jpg"
   },
 
   // ==========================================
@@ -457,7 +457,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Governor of Nairobi City County, former Senator for Nairobi County, and Nominated MP.",
     termInOffice: "2022 - Present (Governor) / 2017 - 2022 (Senator)",
     keyPositionsHeld: ["Governor Nairobi City County", "Senator Nairobi County", "Nominated MP"],
-    photoUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/gov-1.jpg"
   },
   {
     id: "gov-2",
@@ -492,7 +492,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Governor of Homa Bay County, former Woman Representative for Homa Bay, and Chair of National Assembly PAC.",
     termInOffice: "2022 - Present (Governor) / 2013 - 2022 (Woman Rep)",
     keyPositionsHeld: ["Governor Homa Bay County", "Chairperson National Assembly PAC", "Woman Rep"],
-    photoUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/gov-2.jpg"
   },
   {
     id: "gov-3",
@@ -517,7 +517,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Governor of Kirinyaga County, former Chairperson Council of Governors, and CS Devolution & Planning.",
     termInOffice: "2017 - Present",
     keyPositionsHeld: ["Governor Kirinyaga County", "Chairperson Council of Governors", "CS Devolution"],
-    photoUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/gov-3.jpg"
   },
   {
     id: "gov-4",
@@ -542,7 +542,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Governor of Trans Nzoia County, former Rift Valley Regional Commissioner, and Senior Administrator.",
     termInOffice: "2022 - Present",
     keyPositionsHeld: ["Governor Trans Nzoia", "Rift Valley Regional Commissioner", "County Commissioner"],
-    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/gov-4.jpg"
   },
   {
     id: "gov-5",
@@ -566,7 +566,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Governor of Kisii County and former MP for Dagoretti North Constituency.",
     termInOffice: "2022 - Present (Governor) / 2013 - 2022 (MP)",
     keyPositionsHeld: ["Governor Kisii County", "MP Dagoretti North"],
-    photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/gov-5.jpg"
   },
   {
     id: "gov-6",
@@ -591,7 +591,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Governor of Murang'a County, former Senator for Murang'a, MP for Kiharu, and Councillor for Township Ward.",
     termInOffice: "2022 - Present",
     keyPositionsHeld: ["Governor Murang'a County", "Senator Murang'a", "MP Kiharu"],
-    photoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/gov-6.jpg"
   },
   {
     id: "gov-7",
@@ -615,7 +615,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Governor of Mombasa County, former MP for Mvita, and PIC Chairman.",
     termInOffice: "2022 - Present (Governor) / 2013 - 2022 (MP)",
     keyPositionsHeld: ["Governor Mombasa County", "MP Mvita", "Chairman PIC"],
-    photoUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/gov-7.jpg"
   },
   {
     id: "gov-8",
@@ -639,7 +639,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Governor of Siaya County, Senior Counsel, former Senator for Siaya, MP for Ugenya, and Minister for Lands.",
     termInOffice: "2022 - Present (Governor) / 2013 - 2022 (Senator)",
     keyPositionsHeld: ["Governor Siaya County", "Senate Minority Leader", "Minister for Lands"],
-    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/gov-8.jpg"
   },
 
   // ==========================================
@@ -673,7 +673,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Senator for Nairobi City County, High Court Advocate, and Secretary General of ODM.",
     termInOffice: "2022 - Present",
     keyPositionsHeld: ["Senator Nairobi County", "Secretary General ODM Party"],
-    photoUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/sen-1.jpg"
   },
   {
     id: "sen-2",
@@ -698,7 +698,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Senate Leader of Majority Party and 2-term Senator for Kericho County.",
     termInOffice: "2016 - Present",
     keyPositionsHeld: ["Senate Majority Leader", "Senator Kericho County"],
-    photoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/sen-2.jpg"
   },
   {
     id: "sen-3",
@@ -728,7 +728,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Senator for Busia County, public interest activist, and founder of National Regulatory Authority.",
     termInOffice: "2022 - Present",
     keyPositionsHeld: ["Senator Busia County", "Public Interest Activist"],
-    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/sen-3.jpg"
   },
   {
     id: "sen-4",
@@ -748,7 +748,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "2-term Senator for Nandi County and former Chair of Senate Justice & Legal Affairs Committee.",
     termInOffice: "2017 - Present",
     keyPositionsHeld: ["Senator Nandi County", "Chairperson JLAC"],
-    photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/sen-4.jpg"
   },
   {
     id: "sen-5",
@@ -772,7 +772,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Senator for Kakamega County, Medical Doctor, former MP for Ikolomani, and PAC Chairman.",
     termInOffice: "2022 - Present (Senator) / 2002 - 2017 (MP & Senator)",
     keyPositionsHeld: ["Senate Majority Chief Whip", "Senator Kakamega", "MP Ikolomani"],
-    photoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/sen-5.jpg"
   },
 
   // ==========================================
@@ -797,7 +797,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "3-term MP for Kikuyu Constituency and National Assembly Leader of Majority Party.",
     termInOffice: "2013 - Present",
     keyPositionsHeld: ["Leader of Majority Party", "MP Kikuyu"],
-    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/mp-1.jpg"
   },
   {
     id: "mp-2",
@@ -833,7 +833,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "2-term MP for Kiharu Constituency and Chairman Budget & Appropriations Committee.",
     termInOffice: "2017 - Present",
     keyPositionsHeld: ["Chairperson Budget & Appropriations Committee", "MP Kiharu"],
-    photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/mp-2.jpg"
   },
   {
     id: "mp-3",
@@ -860,7 +860,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "2-term MP for Embakasi East and former SONU Student Union President.",
     termInOffice: "2017 - Present",
     keyPositionsHeld: ["MP Embakasi East", "SONU President"],
-    photoUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/mp-3.jpg"
   },
   {
     id: "mp-4",
@@ -886,7 +886,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "2-term MP for Rarieda, Senior Counsel, and former Chairperson Commission on Administrative Justice (Ombudsman).",
     termInOffice: "2017 - Present",
     keyPositionsHeld: ["MP Rarieda", "Chairperson Ombudsman Commission", "Co-Chair Committee of Experts 2010 Constitution"],
-    photoUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/mp-4.jpg"
   },
   {
     id: "mp-5",
@@ -912,7 +912,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "3-term MP for Suba North (formerly Mbita), Advocate of the High Court, and child rights champion.",
     termInOffice: "2008 - Present",
     keyPositionsHeld: ["MP Suba North", "Nominated MP"],
-    photoUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/mp-5.jpg"
   },
   {
     id: "mp-6",
@@ -933,7 +933,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "First-term MP for Lang'ata Constituency, former media personality, comedian, and philanthropist.",
     termInOffice: "2022 - Present",
     keyPositionsHeld: ["MP Lang'ata Constituency"],
-    photoUrl: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/mp-6.jpg"
   },
 
   // ==========================================
@@ -961,7 +961,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "2-term Woman Representative for Nairobi City County, entrepreneur, and founder of Adopt-A-Light.",
     termInOffice: "2017 - Present",
     keyPositionsHeld: ["Woman Representative Nairobi County"],
-    photoUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/wrep-1.jpg"
   },
   {
     id: "wrep-2",
@@ -981,7 +981,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Deputy Speaker of National Assembly, 2-term Woman Rep Uasin Gishu, and former Chief Registrar of the Judiciary.",
     termInOffice: "2017 - Present",
     keyPositionsHeld: ["Deputy Speaker National Assembly", "Woman Rep Uasin Gishu", "Chief Registrar Judiciary"],
-    photoUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/wrep-2.jpg"
   },
   {
     id: "wrep-3",
@@ -1005,7 +1005,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Woman Representative for Nandi County and former Independent MCA for Kilibwoni Ward.",
     termInOffice: "2022 - Present (Woman Rep) / 2017 - 2022 (MCA)",
     keyPositionsHeld: ["Woman Representative Nandi", "MCA Kilibwoni Ward"],
-    photoUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/wrep-3.jpg"
   },
   {
     id: "wrep-4",
@@ -1029,7 +1029,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Woman Representative for Mombasa County and community activist.",
     termInOffice: "2022 - Present",
     keyPositionsHeld: ["Woman Representative Mombasa County"],
-    photoUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/wrep-4.jpg"
   },
 
   // ==========================================
@@ -1059,7 +1059,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Member of County Assembly for Kitisuru Ward, Nairobi City County.",
     termInOffice: "2022 - Present",
     keyPositionsHeld: ["MCA Kitisuru Ward"],
-    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+    // photoUrl omitted to use clean official civic avatar
   },
   {
     id: "mca-2",
@@ -1085,7 +1085,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Member of County Assembly for Kileleshwa Ward, digital campaigner, and blogger.",
     termInOffice: "2022 - Present",
     keyPositionsHeld: ["MCA Kileleshwa Ward"],
-    photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/mca-2.jpg"
   },
   {
     id: "mca-3",
@@ -1111,7 +1111,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Member of County Assembly for Mua Ward, Machakos County.",
     termInOffice: "2022 - Present",
     keyPositionsHeld: ["MCA Mua Ward"],
-    photoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300"
+    // photoUrl omitted to use clean official civic avatar
   },
   {
     id: "mca-4",
@@ -1137,7 +1137,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Member of County Assembly for Market Milimani Ward, Kisumu County.",
     termInOffice: "2022 - Present",
     keyPositionsHeld: ["MCA Market Milimani Ward"],
-    photoUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=300"
+    // photoUrl omitted to use clean official civic avatar
   },
 
   // ==========================================
@@ -1194,7 +1194,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Former 2-term Governor of Uasin Gishu County (2013-2022), Uasin Gishu Senator, and 2027 Turbo Constituency MP Aspirant.",
     termInOffice: "2013 - 2022 (Governor) / 2022 - Present (Senator)",
     keyPositionsHeld: ["Governor Uasin Gishu (2 Terms)", "Senator Uasin Gishu", "2027 MP Aspirant Turbo"],
-    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/gov-tl-1.jpg"
   },
   {
     id: "gov-tl-2",
@@ -1238,7 +1238,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Former 2-term Governor of Mandera County (2013-2022), UDM Party Leader, Mandera Senator, and 2027 MP Aspirant for Mandera East.",
     termInOffice: "2013 - 2022 (Governor) / 2022 - Present (Senator)",
     keyPositionsHeld: ["Governor Mandera (2 Terms)", "UDM Party Leader", "Senator Mandera", "2027 MP Aspirant"],
-    photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/gov-tl-2.jpg"
   },
   {
     id: "gov-tl-3",
@@ -1280,7 +1280,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Former 2-Term Governor of Kwale County (2013-2022), Cabinet Secretary, and 2027 Matuga MP Aspirant.",
     termInOffice: "2013 - 2022 (Governor) / 2022 - 2024 (CS)",
     keyPositionsHeld: ["Governor Kwale (2 Terms)", "Cabinet Secretary", "2027 MP Aspirant Matuga"],
-    photoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/gov-tl-3.jpg"
   },
   {
     id: "cand-new-1",
@@ -1312,7 +1312,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Governor of Homa Bay County, former Woman Representative for Homa Bay, and Vice Chair of ODM Party.",
     termInOffice: "2022 - Present",
     keyPositionsHeld: ["Governor Homa Bay", "Woman Rep Homa Bay", "Chairperson National Assembly Budget Committee"],
-    photoUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/cand-new-1.jpg"
   },
   {
     id: "cand-new-2",
@@ -1344,7 +1344,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Governor of Trans Nzoia County, former Rift Valley Regional Commissioner, and former Senior Administrator.",
     termInOffice: "2022 - Present",
     keyPositionsHeld: ["Governor Trans Nzoia", "Rift Valley Regional Commissioner", "County Commissioner"],
-    photoUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/cand-new-2.jpg"
   },
   {
     id: "cand-new-3",
@@ -1387,7 +1387,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Member of Parliament for Kapseret Constituency, Uasin Gishu County.",
     termInOffice: "2013 - Present",
     keyPositionsHeld: ["MP Kapseret Constituency"],
-    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/cand-new-3.jpg"
   },
   {
     id: "cand-new-4",
@@ -1429,7 +1429,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Governor of Kirinyaga County, former Chairperson of Council of Governors, and former Cabinet Secretary for Devolution.",
     termInOffice: "2017 - Present",
     keyPositionsHeld: ["Governor Kirinyaga", "Chairperson Council of Governors", "Cabinet Secretary Devolution"],
-    photoUrl: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/cand-new-4.jpg"
   },
   {
     id: "cand-new-5",
@@ -1461,6 +1461,6 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     bio: "Governor of Mombasa County and former Member of Parliament for Mvita Constituency.",
     termInOffice: "2022 - Present",
     keyPositionsHeld: ["Governor Mombasa", "MP Mvita Constituency", "Chairperson PIC Committee"],
-    photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
+    photoUrl: "/images/politicians/cand-new-5.jpg"
   }
 ];

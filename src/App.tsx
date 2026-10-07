@@ -74,7 +74,20 @@ export default function App() {
   const [candidates, setCandidates] = useState<Candidate[]>(() => {
     try {
       const saved = localStorage.getItem('chaguo_candidates');
-      return saved ? JSON.parse(saved) : INITIAL_CANDIDATES;
+      if (saved) {
+        const parsed: Candidate[] = JSON.parse(saved);
+        // Refresh photos if they contain old unsplash placeholders or if initial candidate has official photo
+        return parsed.map((c) => {
+          const initial = INITIAL_CANDIDATES.find((ic) => ic.id === c.id);
+          if (initial) {
+            if (!c.photoUrl || c.photoUrl.includes('images.unsplash.com')) {
+              return { ...c, photoUrl: initial.photoUrl };
+            }
+          }
+          return c;
+        });
+      }
+      return INITIAL_CANDIDATES;
     } catch {
       return INITIAL_CANDIDATES;
     }

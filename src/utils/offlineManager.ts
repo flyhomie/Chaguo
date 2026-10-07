@@ -22,7 +22,7 @@ export async function preCacheCandidatePhotos(candidates: Candidate[]): Promise<
     const cache = await caches.open(IMAGE_CACHE_NAME);
     const photoUrls = candidates
       .map((c) => c.photoUrl)
-      .filter((url): url is string => Boolean(url && url.startsWith('http')));
+      .filter((url): url is string => Boolean(url && (url.startsWith('http') || url.startsWith('/images/'))));
 
     // Batch fetch in groups to avoid overwhelming network
     const uniqueUrls = Array.from(new Set(photoUrls));

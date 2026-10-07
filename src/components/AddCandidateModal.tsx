@@ -238,6 +238,7 @@ export const AddCandidateModal: React.FC<AddCandidateModalProps> = ({
                   <img
                     src={photoFilePreview || photoUrlInput}
                     alt="Candidate Preview"
+                    referrerPolicy="no-referrer"
                     className="w-20 h-20 rounded-2xl object-cover border-4 border-emerald-500 shadow-md"
                   />
                 ) : (

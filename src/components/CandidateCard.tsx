@@ -29,6 +29,7 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
   onOpenMoneyTrail,
 }) => {
   const { t } = useLanguage();
+  const [imageError, setImageError] = React.useState(false);
   const rep = calculateReputation(candidate, evidenceReports);
   const getBadgeStyle = (color: string) => {
     switch (color) {
@@ -79,10 +80,12 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
             #{candidate.id.length < 3 ? candidate.id.padStart(2, '0') : candidate.id}
           </span>
           <div className="relative shrink-0">
-            {candidate.photoUrl ? (
+            {candidate.photoUrl && !imageError ? (
               <img
                 src={candidate.photoUrl}
                 alt={candidate.name}
+                referrerPolicy="no-referrer"
+                onError={() => setImageError(true)}
                 className="w-10 h-10 rounded-xl object-cover border-2 border-emerald-500 shrink-0 shadow-xs"
               />
             ) : (
@@ -93,7 +96,7 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
                 size="sm"
               />
             )}
-            {candidate.photoUrl && (
+            {candidate.photoUrl && !imageError && (
               <span
                 className="absolute -bottom-1 -right-1 bg-emerald-600 text-white p-0.5 rounded-full text-[8px] font-black border border-white shadow-xs flex items-center justify-center w-3.5 h-3.5"
                 title="System Verified Official Candidate Photo ✓"
@@ -284,10 +287,12 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
           {/* Profile Details */}
           <div className="flex items-start gap-2 mb-2">
             <div className="relative shrink-0">
-              {candidate.photoUrl ? (
+              {candidate.photoUrl && !imageError ? (
                 <img
                   src={candidate.photoUrl}
                   alt={candidate.name}
+                  referrerPolicy="no-referrer"
+                  onError={() => setImageError(true)}
                   className="w-10 h-10 rounded-xl object-cover border-2 border-emerald-500 shrink-0 shadow-xs"
                 />
               ) : (
@@ -298,7 +303,7 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
                   size="xs"
                 />
               )}
-              {candidate.photoUrl && (
+              {candidate.photoUrl && !imageError && (
                 <span
                   className="absolute -bottom-1 -right-1 bg-emerald-600 text-white p-0.5 rounded-full text-[8px] font-black border border-white shadow-xs flex items-center justify-center w-3.5 h-3.5"
                   title="System Verified Official Candidate Photo ✓"

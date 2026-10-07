@@ -36,6 +36,7 @@ export const CandidateModal: React.FC<CandidateModalProps> = ({
   const [photoUrlInput, setPhotoUrlInput] = useState('');
   const [filePreview, setFilePreview] = useState<string | null>(null);
   const [photoSuccessMsg, setPhotoSuccessMsg] = useState('');
+  const [imageError, setImageError] = useState(false);
 
   if (!candidate) return null;
 
@@ -90,10 +91,12 @@ export const CandidateModal: React.FC<CandidateModalProps> = ({
           <div className="flex items-start justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="relative group shrink-0">
-                {candidate.photoUrl ? (
+                {candidate.photoUrl && !imageError ? (
                   <img
                     src={candidate.photoUrl}
                     alt={candidate.name}
+                    referrerPolicy="no-referrer"
+                    onError={() => setImageError(true)}
                     className="w-16 h-16 rounded-2xl object-cover border-2 border-white shadow-md"
                   />
                 ) : (
