@@ -1,11 +1,12 @@
 import React from 'react';
 import {
   Home,
-  FileSpreadsheet,
+  PlusCircle,
   Bot,
   Settings,
   User,
   ShieldAlert,
+  Upload,
 } from 'lucide-react';
 import { TabType } from './Header';
 import { LocalUser } from './AuthModal';
@@ -19,6 +20,7 @@ interface BottomNavProps {
   onOpenDonations?: () => void;
   onOpenPWA?: () => void;
   onOpenAddCandidate?: () => void;
+  onOpenAddEvidence?: () => void;
   onOpenLanding?: () => void;
   currentUser: LocalUser | null;
 }
@@ -28,6 +30,8 @@ export const BottomNav: React.FC<BottomNavProps> = ({
   onSelectTab,
   onOpenSettings,
   onOpenProfile,
+  onOpenAddCandidate,
+  onOpenAddEvidence,
   currentUser,
 }) => {
   const handleTabClick = (tab: TabType) => {
@@ -36,26 +40,28 @@ export const BottomNav: React.FC<BottomNavProps> = ({
   };
 
   const isHomeActive = activeTab === 'directory';
-  const isHansardActive = activeTab === 'finance-bills';
   const isAIActive = activeTab === 'ai-assistant';
-  const isEvidenceActive = activeTab === 'evidence';
 
   return (
     <div className="fixed bottom-3 left-3 right-3 sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:max-w-md z-40 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md border-2 border-neutral-900 dark:border-neutral-700 shadow-[0_12px_36px_rgba(0,0,0,0.4)] rounded-2xl px-2 py-1.5 transition-all">
       <div className="grid grid-cols-5 gap-1 text-center font-black uppercase text-[10px] tracking-tight items-center">
-        {/* 1. HANSARD (LEFT 1) */}
+        {/* 1. ADD CANDIDATE WITH VERIFIED PHOTO & EVIDENCE */}
         <button
           type="button"
-          onClick={() => handleTabClick('finance-bills')}
-          className={`flex flex-col items-center justify-center py-1.5 px-1 rounded-xl transition-all ${
-            isHansardActive
-              ? 'text-white bg-red-600 shadow-sm font-black'
-              : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800'
-          }`}
-          title="Hansard MP Voting Records"
+          onClick={() => {
+            if (onOpenAddCandidate) {
+              onOpenAddCandidate();
+            } else if (onOpenAddEvidence) {
+              onOpenAddEvidence();
+            } else {
+              handleTabClick('directory');
+            }
+          }}
+          className={`flex flex-col items-center justify-center py-1.5 px-1 rounded-xl transition-all text-white bg-red-600 hover:bg-red-700 shadow-sm font-black animate-pulse`}
+          title="Add Official Candidate (with Verified Photo & Evidence)"
         >
-          <FileSpreadsheet className={`w-5 h-5 mb-0.5 ${isHansardActive ? 'stroke-[2.5px]' : ''}`} />
-          <span>Hansard</span>
+          <PlusCircle className="w-5 h-5 mb-0.5 stroke-[2.5px]" />
+          <span>+ Candidate</span>
         </button>
 
         {/* 2. CIVIC AI (LEFT 2) */}

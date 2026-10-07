@@ -68,7 +68,7 @@ Rules:
 4. Reference candidate context and citizen evidence reports provided. Context: ${JSON.stringify(candidateContext || {})}`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.6-flash",
+      model: "gemini-3.7-flash",
       contents: `Voter Question: ${question}`,
       config: {
         systemInstruction: systemPrompt,

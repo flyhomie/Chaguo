@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CitizenEvidenceReport, CandidatePosition, EvidenceSourceType } from '../types';
-import { Upload, FileText, AlertTriangle, ShieldAlert, CheckCircle2, ThumbsUp, Plus, ExternalLink, X, Search, Filter, Download, MessageSquare, Video, Scale, Newspaper, Cloud } from 'lucide-react';
+import { Upload, FileText, AlertTriangle, ShieldAlert, CheckCircle2, ThumbsUp, Plus, ExternalLink, X, Search, Filter, Download, MessageSquare, Video, Scale, Newspaper } from 'lucide-react';
 import { DemonicAvatar } from './DemonicAvatar';
 import { downloadFile, exportToCSV } from '../utils/download';
 
@@ -8,14 +8,12 @@ interface CitizenEvidenceViewProps {
   reports: CitizenEvidenceReport[];
   onAddReport: (newReport: Omit<CitizenEvidenceReport, 'id' | 'timestamp' | 'upvotes' | 'status'>) => void;
   onUpvote: (reportId: string) => void;
-  onOpenDrive?: () => void;
 }
 
 export const CitizenEvidenceView: React.FC<CitizenEvidenceViewProps> = ({
   reports,
   onAddReport,
   onUpvote,
-  onOpenDrive,
 }) => {
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -198,16 +196,6 @@ File Preview Hash: ${report.filePreview || 'N/A'}
         </div>
 
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
-          {onOpenDrive && (
-            <button
-              onClick={onOpenDrive}
-              className="px-4 py-4 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-widest transition-all border-2 border-blue-500 flex items-center justify-center gap-2 shadow-sm"
-              title="Backup and view evidence files on Google Drive"
-            >
-              <Cloud className="w-4 h-4 text-blue-100" />
-              <span>DRIVE CLOUD STORAGE</span>
-            </button>
-          )}
           <button
             onClick={handleExportAllEvidenceCSV}
             className="px-4 py-4 bg-neutral-800 hover:bg-neutral-700 text-white font-black text-xs uppercase tracking-widest transition-all border-2 border-neutral-700 flex items-center justify-center gap-2"

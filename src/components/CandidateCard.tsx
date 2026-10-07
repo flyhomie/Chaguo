@@ -1,8 +1,9 @@
 import React from 'react';
 import { Candidate, CitizenEvidenceReport } from '../types';
-import { ChevronRight, Bookmark, BookmarkCheck, ShieldAlert, Award, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { ChevronRight, Bookmark, BookmarkCheck, ShieldAlert, Award, AlertTriangle, CheckCircle2, DollarSign } from 'lucide-react';
 import { DemonicAvatar } from './DemonicAvatar';
 import { calculateReputation } from '../utils/reputation';
+import { useLanguage } from '../context/LanguageContext';
 
 interface CandidateCardProps {
   candidate: Candidate;
@@ -13,6 +14,7 @@ interface CandidateCardProps {
   isCompared?: boolean;
   viewMode?: 'grid' | 'list';
   evidenceReports?: CitizenEvidenceReport[];
+  onOpenMoneyTrail?: (candidate: Candidate) => void;
 }
 
 export const CandidateCard: React.FC<CandidateCardProps> = ({
@@ -24,7 +26,9 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
   isCompared = false,
   viewMode = 'grid',
   evidenceReports = [],
+  onOpenMoneyTrail,
 }) => {
+  const { t } = useLanguage();
   const rep = calculateReputation(candidate, evidenceReports);
   const getBadgeStyle = (color: string) => {
     switch (color) {
@@ -74,12 +78,30 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
           <span className="text-base sm:text-lg font-black font-mono tracking-tight text-neutral-400 dark:text-neutral-500 shrink-0 w-8">
             #{candidate.id.length < 3 ? candidate.id.padStart(2, '0') : candidate.id}
           </span>
-          <DemonicAvatar
-            seed={candidate.id}
-            name={candidate.name}
-            tagColor={candidate.tagColor}
-            size="sm"
-          />
+          <div className="relative shrink-0">
+            {candidate.photoUrl ? (
+              <img
+                src={candidate.photoUrl}
+                alt={candidate.name}
+                className="w-10 h-10 rounded-xl object-cover border-2 border-emerald-500 shrink-0 shadow-xs"
+              />
+            ) : (
+              <DemonicAvatar
+                seed={candidate.id}
+                name={candidate.name}
+                tagColor={candidate.tagColor}
+                size="sm"
+              />
+            )}
+            {candidate.photoUrl && (
+              <span
+                className="absolute -bottom-1 -right-1 bg-emerald-600 text-white p-0.5 rounded-full text-[8px] font-black border border-white shadow-xs flex items-center justify-center w-3.5 h-3.5"
+                title="System Verified Official Candidate Photo ✓"
+              >
+                ✓
+              </span>
+            )}
+          </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5 flex-wrap">
               <h3 className="text-sm font-black uppercase tracking-tight truncate group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
@@ -102,31 +124,50 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
 
         {/* Middle Section: Crime Badges & Voting Roll */}
         <div className="flex items-center gap-2 flex-wrap shrink-0">
+          {candidate.isTermLimitedGovernorRunningForLowerSeat && (
+            <span className="px-1.5 py-0.5 bg-red-600 text-white text-[9px] font-black uppercase border border-red-700 flex items-center gap-1 animate-pulse">
+              <AlertTriangle className="w-3 h-3" /> {t.redFlagExGovBadge}
+            </span>
+          )}
           {hasCorruptionCase && (
             <span className="px-1.5 py-0.5 bg-red-100 dark:bg-red-950 text-red-800 dark:text-red-300 text-[9px] font-black uppercase border border-red-300 dark:border-red-800">
-              CORRUPTION
+              {t.corruptionBadge}
             </span>
           )}
           {hasSexualViolenceCase && (
             <span className="px-1.5 py-0.5 bg-purple-100 dark:bg-purple-950 text-purple-900 dark:text-purple-300 text-[9px] font-black uppercase border border-purple-300 dark:border-purple-800">
-              RAPE/DEFILEMENT
+              {t.sexualViolenceBadge}
             </span>
           )}
           {hasRobberyCase && (
             <span className="px-1.5 py-0.5 bg-amber-100 dark:bg-amber-950 text-amber-900 dark:text-amber-300 text-[9px] font-black uppercase border border-amber-300 dark:border-amber-800">
-              ROBBERY
+              {t.robberyBadge}
             </span>
           )}
 
           <div className="text-[9px] font-bold uppercase bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 border border-neutral-300 dark:border-neutral-700 flex items-center gap-1.5">
-            <span>FB '24: <strong className={candidate.votes.financeBill2024 === 'YES' ? 'text-red-600' : 'text-green-600'}>{candidate.votes.financeBill2024}</strong></span>
+            <span>FB '24: <strong className={candidate.votes.financeBill2024 === 'YES' ? 'text-red-600' : 'text-green-600'}>{candidate.votes.financeBill2024 === 'YES' ? t.votedYesLabel : candidate.votes.financeBill2024 === 'NO' ? t.votedNoLabel : candidate.votes.financeBill2024}</strong></span>
             <span>•</span>
-            <span>FB '25: <strong className={candidate.votes.financeBill2025 === 'YES' ? 'text-red-600' : 'text-green-600'}>{candidate.votes.financeBill2025}</strong></span>
+            <span>FB '25: <strong className={candidate.votes.financeBill2025 === 'YES' ? 'text-red-600' : 'text-green-600'}>{candidate.votes.financeBill2025 === 'YES' ? t.votedYesLabel : candidate.votes.financeBill2025 === 'NO' ? t.votedNoLabel : candidate.votes.financeBill2025}</strong></span>
           </div>
         </div>
 
         {/* Right Section: Actions */}
         <div className="flex items-center gap-1.5 shrink-0 w-full lg:w-auto justify-end border-t lg:border-t-0 pt-2 lg:pt-0 border-neutral-200 dark:border-neutral-800">
+          {onOpenMoneyTrail && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onOpenMoneyTrail(candidate);
+              }}
+              className="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-[9px] font-black uppercase tracking-wider rounded-xs flex items-center gap-1 shadow-xs transition-colors"
+              title="Track AIPAC Campaign Finance Donors"
+            >
+              <DollarSign className="w-3 h-3 text-emerald-200" />
+              <span>{t.trackAIPACMoney}</span>
+            </button>
+          )}
+
           {onCompareToggle && (
             <button
               onClick={(e) => {
@@ -139,7 +180,7 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
                   : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border-neutral-300 dark:border-neutral-700 hover:border-neutral-900'
               }`}
             >
-              {isCompared ? 'COMPARED' : '+ COMPARE'}
+              {isCompared ? t.comparedBtn : `+ ${t.compareBtn}`}
             </button>
           )}
 
@@ -154,7 +195,7 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
                   ? 'bg-red-600 text-white border-red-600'
                   : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border-neutral-300 dark:border-neutral-700 hover:border-neutral-900'
               }`}
-              title={isSaved ? "Saved to Ballot" : "Save candidate"}
+              title={isSaved ? t.savedBallot : t.saveBallot}
             >
               {isSaved ? <BookmarkCheck className="w-3.5 h-3.5" /> : <Bookmark className="w-3.5 h-3.5" />}
             </button>
@@ -164,7 +205,7 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
             onClick={() => onSelect(candidate)}
             className="px-2.5 py-1 bg-neutral-900 dark:bg-neutral-800 hover:bg-red-600 dark:hover:bg-red-600 text-white text-[10px] font-black uppercase tracking-wider transition-colors flex items-center gap-1 rounded-xs"
           >
-            <span>DOSSIER</span>
+            <span>{t.viewBio}</span>
             <ChevronRight className="w-3 h-3" />
           </button>
         </div>
@@ -191,13 +232,26 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
             </div>
 
             <div className="flex items-center gap-1">
+              {onOpenMoneyTrail && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onOpenMoneyTrail(candidate);
+                  }}
+                  title="Track AIPAC & Campaign Finance Donors"
+                  className="p-0.5 bg-emerald-600 hover:bg-emerald-700 text-white border border-emerald-700 rounded-xs"
+                >
+                  <DollarSign className="w-3 h-3 text-emerald-100" />
+                </button>
+              )}
+
               {onCompareToggle && (
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     onCompareToggle(candidate);
                   }}
-                  title={isCompared ? "Remove from Compare" : "Add to Compare"}
+                  title={isCompared ? t.comparedBtn : t.compareBtn}
                   className={`px-1 py-0.2 text-[8px] font-black uppercase border transition-colors ${
                     isCompared
                       ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 border-neutral-900'
@@ -219,7 +273,7 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
                       ? 'bg-red-600 text-white border-red-600'
                       : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border-neutral-300 dark:border-neutral-700'
                   }`}
-                  title={isSaved ? "Saved to Ballot" : "Save candidate"}
+                  title={isSaved ? t.savedBallot : t.saveBallot}
                 >
                   {isSaved ? <BookmarkCheck className="w-3 h-3" /> : <Bookmark className="w-3 h-3" />}
                 </button>
@@ -229,12 +283,30 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
 
           {/* Profile Details */}
           <div className="flex items-start gap-2 mb-2">
-            <DemonicAvatar
-              seed={candidate.id}
-              name={candidate.name}
-              tagColor={candidate.tagColor}
-              size="xs"
-            />
+            <div className="relative shrink-0">
+              {candidate.photoUrl ? (
+                <img
+                  src={candidate.photoUrl}
+                  alt={candidate.name}
+                  className="w-10 h-10 rounded-xl object-cover border-2 border-emerald-500 shrink-0 shadow-xs"
+                />
+              ) : (
+                <DemonicAvatar
+                  seed={candidate.id}
+                  name={candidate.name}
+                  tagColor={candidate.tagColor}
+                  size="xs"
+                />
+              )}
+              {candidate.photoUrl && (
+                <span
+                  className="absolute -bottom-1 -right-1 bg-emerald-600 text-white p-0.5 rounded-full text-[8px] font-black border border-white shadow-xs flex items-center justify-center w-3.5 h-3.5"
+                  title="System Verified Official Candidate Photo ✓"
+                >
+                  ✓
+                </span>
+              )}
+            </div>
 
             <div className="flex-1 min-w-0">
               <h3 className="text-xs font-black uppercase tracking-tight leading-snug truncate group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
@@ -250,21 +322,28 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
           </div>
 
           {/* Legal & Crime Warning Badges */}
-          {(hasCorruptionCase || hasSexualViolenceCase || hasRobberyCase) && (
+          {(candidate.isTermLimitedGovernorRunningForLowerSeat || hasCorruptionCase || hasSexualViolenceCase || hasRobberyCase) && (
             <div className="mb-2 space-y-0.5">
+              {candidate.isTermLimitedGovernorRunningForLowerSeat && (
+                <div className="px-1 py-0.5 bg-red-600 text-white text-[8px] font-black uppercase border border-red-700 flex items-center justify-between animate-pulse">
+                  <span className="truncate flex items-center gap-1">
+                    <AlertTriangle className="w-2.5 h-2.5" /> {t.redFlagExGovBadge}
+                  </span>
+                </div>
+              )}
               {hasCorruptionCase && (
                 <div className="px-1 py-0.2 bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300 text-[8px] font-black uppercase border border-red-300 dark:border-red-800 flex items-center justify-between">
-                  <span className="truncate">CORRUPTION: {candidate.corruptionStatus}</span>
+                  <span className="truncate">{t.corruptionBadge}: {candidate.corruptionStatus}</span>
                 </div>
               )}
               {hasSexualViolenceCase && (
                 <div className="px-1 py-0.2 bg-purple-100 text-purple-900 dark:bg-purple-950 dark:text-purple-300 text-[8px] font-black uppercase border border-purple-300 dark:border-purple-800 flex items-center justify-between">
-                  <span className="truncate">RAPE/DEFILEMENT: {candidate.sexualViolenceStatus}</span>
+                  <span className="truncate">{t.sexualViolenceBadge}: {candidate.sexualViolenceStatus}</span>
                 </div>
               )}
               {hasRobberyCase && (
                 <div className="px-1 py-0.2 bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-300 text-[8px] font-black uppercase border border-amber-300 dark:border-amber-800 flex items-center justify-between">
-                  <span className="truncate">ROBBERY: {candidate.robberyCrimeStatus}</span>
+                  <span className="truncate">{t.robberyBadge}: {candidate.robberyCrimeStatus}</span>
                 </div>
               )}
             </div>
@@ -282,7 +361,7 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
                 ? 'text-green-600 dark:text-green-400'
                 : 'text-neutral-900 dark:text-neutral-200'
             }`}>
-              {candidate.votes.financeBill2024}
+              {candidate.votes.financeBill2024 === 'YES' ? t.votedYesLabel : candidate.votes.financeBill2024 === 'NO' ? t.votedNoLabel : candidate.votes.financeBill2024}
             </span>
           </div>
 
@@ -295,7 +374,7 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
                 ? 'text-green-600 dark:text-green-400'
                 : 'text-neutral-900 dark:text-neutral-200'
             }`}>
-              {candidate.votes.financeBill2025}
+              {candidate.votes.financeBill2025 === 'YES' ? t.votedYesLabel : candidate.votes.financeBill2025 === 'NO' ? t.votedNoLabel : candidate.votes.financeBill2025}
             </span>
           </div>
         </div>
@@ -306,7 +385,7 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
         onClick={() => onSelect(candidate)}
         className="w-full mt-2 bg-neutral-900 dark:bg-neutral-800 hover:bg-red-600 dark:hover:bg-red-600 text-white px-2 py-1 text-[9px] font-black uppercase tracking-wider transition-colors flex items-center justify-between rounded-xs"
       >
-        <span>DOSSIER</span>
+        <span>{t.viewBio}</span>
         <ChevronRight className="w-3 h-3" />
       </button>
     </div>

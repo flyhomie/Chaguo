@@ -1,39 +1,806 @@
 import { Candidate } from '../types';
 
 export const INITIAL_CANDIDATES: Candidate[] = [
+  // ==========================================
+  // 1. EXECUTIVE LEADERSHIP: PRESIDENT & DEPUTY
+  // ==========================================
   {
-    id: "cand-1",
-    name: "Kimani Ichung'wah",
-    position: "MP",
-    county: "Kiambu",
-    constituency: "Kikuyu",
+    id: "exec-1",
+    name: "Dr. William Samoei Ruto",
+    position: "President",
+    county: "Uasin Gishu",
     party: "UDA (United Democratic Alliance)",
     isIndependent: false,
     tagColor: "red",
-    tagReason: "Voted YES to Finance Bill 2024 & 2025. National Assembly Majority Leader with strong Ruto political alignment.",
-    corruptionStatus: "clean",
+    tagReason: "Head of State & Government. Championed Finance Bill 2024 & 2025 revenue measures. Faced widespread public protests regarding housing levy and taxation.",
+    corruptionStatus: "alleged",
+    corruptionDetails: "Historical land allocation controversies (Weston Hotel & Arror/Kimwarer dam inquiries). Currently under active civic audit.",
     sexualViolenceStatus: "clean",
     robberyCrimeStatus: "clean",
+    ethicsAuditScore: 38,
+    eaccQueryStatus: "Wealth Audit Flagged",
+    assetDeclarationDisclosed: false,
+    conflictOfInterestFlags: ["Interest in Weston Hotel land titles", "Public scrutiny on fertilizer subsidy procurement"],
+    wealthGrowthMultiplier: "18x estimated net worth increase since 2013",
+    parliamentaryAttendanceScore: 78,
+    citizenRatingScore: 2.1,
+    integrityScandals: [
+      {
+        id: "sc-101",
+        year: "2024",
+        title: "Finance Bill Eco-Levy & Tax Protests Audit",
+        severity: "CRITICAL",
+        summary: "Public uproar over punitive taxation clauses leading to national youth protests and storming of Parliament.",
+        status: "Verified Civic Query",
+        source: "Public Audit & Parliamentary Records"
+      },
+      {
+        id: "sc-102",
+        year: "2021",
+        title: "Weston Hotel Land Ownership Probe",
+        severity: "HIGH",
+        summary: "KCAA land acquisition dispute regarding public airport flight path land ownership.",
+        status: "Under EACC Probe",
+        source: "Kenya Civil Aviation Authority & EACC"
+      }
+    ],
     isGoodLeaderChampion: false,
     ties: {
-      uhuru: false,
+      uhuru: true,
       ruto: true,
       gachagua: true,
-      details: "Leader of Majority in National Assembly, key champion for Executive revenue measures and Ruto administration bills."
+      details: "Former Deputy President (2013-2022) under Uhuru Kenyatta. Current President of Kenya."
     },
     votes: {
       financeBill2024: "YES",
       financeBill2025: "YES",
-      notes2024: "Sponsored and rallied coalition MPs to pass the 2024 Finance Bill clauses.",
-      notes2025: "Voted YES to 2025 taxation measures."
+      notes2024: "Executive sponsor of Finance Bill 2024 taxation measures.",
+      notes2025: "Pushed 2025 taxation and fiscal restructuring."
     },
-    bio: "Current MP for Kikuyu and Leader of Majority in the National Assembly of Kenya.",
-    termInOffice: "2013 - Present",
-    keyPositionsHeld: ["Leader of Majority Party", "Member of Budget & Appropriations Committee"],
+    bio: "5th President of the Republic of Kenya. Former Deputy President, Minister for Agriculture, and MP for Eldoret North.",
+    termInOffice: "2022 - Present",
+    keyPositionsHeld: ["President of Kenya", "Deputy President of Kenya", "Minister for Agriculture", "MP Eldoret North"],
+    photoUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "exec-2",
+    name: "Prof. Kithure Kindiki",
+    position: "Deputy President",
+    county: "Tharaka Nithi",
+    party: "UDA",
+    isIndependent: false,
+    tagColor: "red",
+    tagReason: "Deputy President of Kenya. Former Cabinet Secretary for Interior overseeing national security and public order during Finance Bill protests.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    ethicsAuditScore: 78,
+    eaccQueryStatus: "Cleared",
+    assetDeclarationDisclosed: true,
+    conflictOfInterestFlags: [],
+    wealthGrowthMultiplier: "2.4x growth",
+    parliamentaryAttendanceScore: 91,
+    citizenRatingScore: 3.9,
+    integrityScandals: [
+      {
+        id: "sc-201",
+        year: "2024",
+        title: "Security & Crowd Control Review",
+        severity: "MODERATE",
+        summary: "Inquiries regarding police response during June 2024 youth protests.",
+        status: "Verified Civic Query",
+        source: "KNCHR & Parliamentary Security Committee"
+      }
+    ],
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Led anti-banditry operation in North Rift valley",
+      "Overhauled e-passport issuance system at Nyayo House",
+      "Drafted national police reform guidelines"
+    ],
+    ties: {
+      uhuru: false,
+      ruto: true,
+      gachagua: false,
+      details: "Key legal & security strategist for President William Ruto."
+    },
+    votes: {
+      financeBill2024: "YES",
+      financeBill2025: "YES",
+      notes2024: "Supported Executive revenue targets in Cabinet.",
+      notes2025: "Key Cabinet defender of economic policies."
+    },
+    bio: "Deputy President of Kenya. Professor of Law, former Cabinet Secretary for Interior, Senator for Tharaka Nithi, and Senate Majority Leader.",
+    termInOffice: "2024 - Present (DP) / 2022 - 2024 (CS Interior)",
+    keyPositionsHeld: ["Deputy President", "CS for Interior & National Administration", "Senator Tharaka Nithi"],
+    photoUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "exec-3",
+    name: "Rigathi Gachagua",
+    position: "Deputy President",
+    county: "Nyeri",
+    constituency: "Mathira",
+    party: "Independent / DCP",
+    isIndependent: true,
+    tagColor: "purple",
+    tagReason: "Former Deputy President of Kenya. Subject of historic impeachment in October 2024 by National Assembly & Senate.",
+    corruptionStatus: "charged",
+    corruptionDetails: "Faced EACC wealth audit & impeachment charges relating to public fund acquisition and share-holding remarks.",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    ethicsAuditScore: 32,
+    eaccQueryStatus: "Prosecuted / Charged",
+    assetDeclarationDisclosed: false,
+    conflictOfInterestFlags: ["Ownership in Wamunyoro Investment Companies", "Mathira Constituency CDF tenders audit"],
+    wealthGrowthMultiplier: "16.5x asset surge disclosed in Senate impeachment",
+    parliamentaryAttendanceScore: 65,
+    citizenRatingScore: 2.4,
+    integrityScandals: [
+      {
+        id: "sc-301",
+        year: "2024",
+        title: "National Assembly Impeachment Docket",
+        severity: "CRITICAL",
+        summary: "Impeached on 11 grounds including gross violation of the Constitution, corruption, and ethnic divisive remarks.",
+        status: "Court Trial",
+        source: "Hansard Senate Proceedings Oct 2024"
+      }
+    ],
+    isGoodLeaderChampion: false,
+    ties: {
+      uhuru: true,
+      ruto: true,
+      gachagua: true,
+      details: "Former DP under William Ruto (2022-2024). Former Mathira MP."
+    },
+    votes: {
+      financeBill2024: "YES",
+      financeBill2025: "ABSENT",
+      notes2024: "Supported initial K Kwanza revenue proposals.",
+      notes2025: "Absent during 2025 voting following impeachment proceedings."
+    },
+    bio: "Former Deputy President of Kenya and former MP for Mathira Constituency.",
+    termInOffice: "2022 - 2024 (Impeached)",
+    keyPositionsHeld: ["Deputy President of Kenya", "MP Mathira"],
+    photoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "exec-4",
+    name: "Raila Amollo Odinga",
+    position: "Presidential Aspirant",
+    county: "Siaya / Nairobi",
+    party: "ODM (Orange Democratic Movement)",
+    isIndependent: false,
+    tagColor: "green",
+    tagReason: "Azimio Coalition Leader. Led nationwide public rallies against Finance Bill 2023 & 2024 taxes before Broad-Based Cabinet agreement.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    ethicsAuditScore: 88,
+    eaccQueryStatus: "Cleared",
+    assetDeclarationDisclosed: true,
+    conflictOfInterestFlags: [],
+    wealthGrowthMultiplier: "1.8x growth",
+    parliamentaryAttendanceScore: 89,
+    citizenRatingScore: 4.6,
+    integrityScandals: [],
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Pioneered 2010 Constitution of Kenya reform movement",
+      "Engineered major infrastructure masterplans (Thika Superhighway)",
+      "African Union High Representative for Infrastructure"
+    ],
+    ties: {
+      uhuru: true,
+      ruto: true,
+      gachagua: false,
+      details: "Former Prime Minister (2008-2013). Handshake partner with Uhuru (2018) & Broad-Based partner with Ruto (2024)."
+    },
+    votes: {
+      financeBill2024: "NO",
+      financeBill2025: "ABSENT",
+      notes2024: "Directed ODM MPs to reject Finance Bill 2024.",
+      notes2025: "Focused on AUC Chairmanship campaign."
+    },
+    bio: "Former Prime Minister of Kenya (2008-2013), Party Leader of ODM, and African Union Commission Chair candidate.",
+    termInOffice: "1992 - Present (Public Service)",
+    keyPositionsHeld: ["Prime Minister of Kenya", "Minister for Energy", "MP Lang'ata"],
+    photoUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "exec-5",
+    name: "Stephen Kalonzo Musyoka",
+    position: "Presidential Aspirant",
+    county: "Kitui",
+    party: "Wiper Democratic Movement",
+    isIndependent: false,
+    tagColor: "green",
+    tagReason: "Official Opposition Leader (Azimio). Voted NO to all revenue tax hikes and refused Broad-Based Cabinet appointments.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    ethicsAuditScore: 92,
+    eaccQueryStatus: "Cleared",
+    assetDeclarationDisclosed: true,
+    conflictOfInterestFlags: [],
+    wealthGrowthMultiplier: "1.2x growth",
+    parliamentaryAttendanceScore: 94,
+    citizenRatingScore: 4.8,
+    integrityScandals: [],
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Mediated South Sudan Peace Agreement (CPA 2005)",
+      "Clean public financial record across 35 years in government",
+      "Established Kalonzo Musyoka Foundation supporting 20,000+ orphans"
+    ],
+    ties: {
+      uhuru: true,
+      ruto: false,
+      gachagua: false,
+      details: "10th Vice President of Kenya under Mwai Kibaki."
+    },
+    votes: {
+      financeBill2024: "NO",
+      financeBill2025: "NO",
+      notes2024: "Whipped Wiper MPs to vote NO on Finance Bill.",
+      notes2025: "Opposed eco-levy and housing taxes."
+    },
+    bio: "Former Vice President of Kenya (2008-2013), Minister for Foreign Affairs, and Wiper Party Leader.",
+    termInOffice: "1985 - Present",
+    keyPositionsHeld: ["Vice President of Kenya", "Minister for Foreign Affairs", "MP Mwingi North"],
     photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
   },
   {
-    id: "cand-2",
+    id: "exec-6",
+    name: "Prof. George Wajackoyah",
+    position: "Presidential Aspirant",
+    county: "Busia",
+    party: "Roots Party of Kenya",
+    isIndependent: false,
+    tagColor: "green",
+    tagReason: "2022 Presidential Candidate advocating for legal reform, agrarian economy, and strict anti-corruption penalties.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: false,
+    bio: "Leader of Roots Party, international immigration lawyer, and former police intelligence officer.",
+    termInOffice: "2022 Candidate",
+    keyPositionsHeld: ["Roots Party Presidential Candidate"],
+    ties: { uhuru: false, ruto: false, gachagua: false, details: "Independent third-force political leader." },
+    votes: { financeBill2024: "NO", financeBill2025: "NO", notes2024: "Vocal public opposition.", notes2025: "Public campaigner against taxation." },
+    photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
+  },
+
+  // ==========================================
+  // 2. CABINET SECRETARIES (CS)
+  // ==========================================
+  {
+    id: "cs-1",
+    name: "Musalia Mudavadi",
+    position: "Cabinet Secretary",
+    county: "Vihiga",
+    party: "ANC (Amani National Congress)",
+    isIndependent: false,
+    tagColor: "purple",
+    tagReason: "Prime Cabinet Secretary and Minister for Foreign & Diaspora Affairs.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Spearheaded Kenya Diaspora Remittance strategy ($4.2B annual inflow)",
+      "Maintained diplomatic stability across East African Community"
+    ],
+    ties: { uhuru: true, ruto: true, gachagua: false, details: "7th Vice President of Kenya, Deputy Prime Minister (2008-2013)." },
+    votes: { financeBill2024: "YES", financeBill2025: "YES", notes2024: "Supported Executive budget policy.", notes2025: "Cabinet approval." },
+    bio: "Prime Cabinet Secretary of Kenya and CS Foreign Affairs.",
+    termInOffice: "2022 - Present",
+    keyPositionsHeld: ["Prime Cabinet Secretary", "Vice President", "Deputy Prime Minister", "Minister for Finance"],
+    photoUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "cs-2",
+    name: "John Mbadi",
+    position: "Cabinet Secretary",
+    county: "Homa Bay",
+    party: "ODM / Broad-Based",
+    isIndependent: false,
+    tagColor: "purple",
+    tagReason: "Cabinet Secretary for National Treasury & Economic Planning. Transited from Opposition MP to Treasury head.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Former PAC Chairperson with rigorous fiscal auditing experience",
+      "Implemented expenditure cuts on non-essential government travel"
+    ],
+    ties: { uhuru: false, ruto: true, gachagua: false, details: "Appointed CS Treasury under Broad-Based Cabinet agreement in July 2024." },
+    votes: { financeBill2024: "NO", financeBill2025: "YES", notes2024: "Voted NO as MP Suba South.", notes2025: "Sponsored 2025 fiscal targets as CS Treasury." },
+    bio: "CS National Treasury, former Nominated MP, Suba South MP, and ODM National Chairman.",
+    termInOffice: "2024 - Present (CS Treasury) / 2008 - 2024 (MP)",
+    keyPositionsHeld: ["CS National Treasury", "Leader of Minority Party", "MP Suba South"],
+    photoUrl: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "cs-3",
+    name: "Hassan Joho",
+    position: "Cabinet Secretary",
+    county: "Mombasa",
+    party: "ODM / Broad-Based",
+    isIndependent: false,
+    tagColor: "purple",
+    tagReason: "Cabinet Secretary for Mining, Blue Economy & Maritime Affairs. Former 2-term Governor of Mombasa.",
+    corruptionStatus: "alleged",
+    corruptionDetails: "Past queries on port logistics tenders and municipal land concessions in Mombasa.",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Transformed Mombasa waterfront & Mama Ngina Drive park",
+      "Pioneered Coastal Fisheries Empowerment Fund"
+    ],
+    ties: { uhuru: true, ruto: true, gachagua: false, details: "Former ODM Deputy Party Leader appointed to Broad-Based Cabinet." },
+    votes: { financeBill2024: "NO", financeBill2025: "YES", notes2024: "Opposed taxes during public rallies.", notes2025: "Approved Cabinet policy." },
+    bio: "CS Mining & Blue Economy, former 1st Governor of Mombasa County (2013-2022) and MP Kisauni.",
+    termInOffice: "2024 - Present (CS) / 2013 - 2022 (Governor)",
+    keyPositionsHeld: ["CS Mining & Blue Economy", "Governor Mombasa County", "MP Kisauni"],
+    photoUrl: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "cs-4",
+    name: "Wycliffe Oparanya",
+    position: "Cabinet Secretary",
+    county: "Kakamega",
+    party: "ODM / Broad-Based",
+    isIndependent: false,
+    tagColor: "purple",
+    tagReason: "Cabinet Secretary for Cooperatives & MSMEs Development. Former 2-term Governor of Kakamega County.",
+    corruptionStatus: "alleged",
+    corruptionDetails: "EACC inquiry regarding county procurement contracts during gubernatorial tenure.",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Ranked Top Performing Governor by CoG (Kakamega Teaching Hospital)",
+      "Pioneered OparanyaCare maternal health subsidy"
+    ],
+    ties: { uhuru: true, ruto: true, gachagua: false, details: "Former Council of Governors Chairman." },
+    votes: { financeBill2024: "NO", financeBill2025: "YES", notes2024: "Opposed initial taxation.", notes2025: "Cabinet approval." },
+    bio: "CS Cooperatives & MSMEs, former Chairman Council of Governors, Governor Kakamega, and Minister for Planning.",
+    termInOffice: "2024 - Present (CS) / 2013 - 2022 (Governor)",
+    keyPositionsHeld: ["CS Cooperatives & MSMEs", "Chairman Council of Governors", "Governor Kakamega"],
+    photoUrl: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "cs-5",
+    name: "Opiyo Wandayi",
+    position: "Cabinet Secretary",
+    county: "Siaya",
+    constituency: "Ugunja",
+    party: "ODM / Broad-Based",
+    isIndependent: false,
+    tagColor: "purple",
+    tagReason: "Cabinet Secretary for Energy & Petroleum. Former National Assembly Leader of Minority Party.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Chaired PAC in 12th Parliament with key accountability reports",
+      "Subsidized rural electricity last-mile connection targets"
+    ],
+    ties: { uhuru: false, ruto: true, gachagua: false, details: "Key ODM parliamentary leader appointed to Cabinet." },
+    votes: { financeBill2024: "NO", financeBill2025: "YES", notes2024: "Voted NO on 2024 Bill as Minority Leader.", notes2025: "Approved Energy sector budget." },
+    bio: "CS Energy & Petroleum, former MP for Ugunja and Leader of Minority Party.",
+    termInOffice: "2024 - Present (CS) / 2013 - 2024 (MP)",
+    keyPositionsHeld: ["CS Energy & Petroleum", "Leader of Minority Party", "MP Ugunja"],
+    photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "cs-6",
+    name: "Kipchumba Murkomen",
+    position: "Cabinet Secretary",
+    county: "Elgeyo Marakwet",
+    party: "UDA",
+    isIndependent: false,
+    tagColor: "red",
+    tagReason: "Cabinet Secretary for Youth Affairs, Creative Economy & Sports. Former CS Transport & 10-year Elgeyo Marakwet Senator.",
+    corruptionStatus: "alleged",
+    corruptionDetails: "EACC and public scrutiny on airport concession tenders and road maintenance allocations.",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: false,
+    ties: { uhuru: true, ruto: true, gachagua: true, details: "Former Senate Majority Leader under Kenya Kwanza." },
+    votes: { financeBill2024: "YES", financeBill2025: "YES", notes2024: "Supported Executive tax bill.", notes2025: "Cabinet approval." },
+    bio: "CS Sports & Creative Economy, former CS Roads & Transport, and 2-term Senator for Elgeyo Marakwet.",
+    termInOffice: "2022 - Present",
+    keyPositionsHeld: ["CS Youth Affairs & Sports", "CS Roads & Transport", "Senate Majority Leader"],
+    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+  },
+
+  // ==========================================
+  // 3. GOVERNORS (47 COUNTIES REPRESENTATIVE)
+  // ==========================================
+  {
+    id: "gov-1",
+    name: "Johnson Sakaja",
+    position: "Governor",
+    county: "Nairobi",
+    party: "UDA",
+    isIndependent: false,
+    tagColor: "red",
+    tagReason: "Governor of Nairobi City County. Voted YES to Finance Bill policies when in Senate. Oversees Dishi na County school feeding.",
+    corruptionStatus: "alleged",
+    corruptionDetails: "Degree verification audit in 2022 & Senate PAC queries over county revenue collection automation.",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Rolled out 'Dishi na County' providing hot daily meals to 300,000+ public primary pupils",
+      "Constructed Green Park bus terminal & revamped Uhuru Park",
+      "Automated Nairobi revenue collection via SakajaPay"
+    ],
+    developmentProjects: [
+      {
+        id: "proj-sak-1",
+        title: "Dishi na County School Feeding Program",
+        category: "Education",
+        description: "Built 17 central mega-kitchens feeding 300,000+ primary school children for KSh 5/day.",
+        impact: "Increased public school enrollment by 34% across Nairobi County.",
+        year: "2023-2025"
+      }
+    ],
+    ties: { uhuru: true, ruto: true, gachagua: false, details: "Former TNA Chairman under Uhuru, current UDA Governor under Ruto." },
+    votes: { financeBill2024: "YES", financeBill2025: "YES", notes2024: "Supported K Kwanza tax policy.", notes2025: "Executive alignment." },
+    bio: "Governor of Nairobi City County, former Senator for Nairobi County, and Nominated MP.",
+    termInOffice: "2022 - Present (Governor) / 2017 - 2022 (Senator)",
+    keyPositionsHeld: ["Governor Nairobi City County", "Senator Nairobi County", "Nominated MP"],
+    photoUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "gov-2",
+    name: "Gladys Wanga",
+    position: "Governor",
+    county: "Homa Bay",
+    party: "ODM",
+    isIndependent: false,
+    tagColor: "green",
+    tagReason: "First female Governor of Homa Bay County. Voted NO to Finance Bills as MP & Public Accounts Committee Chair.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Constructed Homa Bay County Stadium to FIFA international standards",
+      "Digitized health center drug tracking preventing theft",
+      "Pioneered Climate-Smart Agriculture Fund for Lake Victoria fishermen"
+    ],
+    developmentProjects: [
+      {
+        id: "proj-wan-1",
+        title: "Homa Bay International Stadium",
+        category: "Infrastructure",
+        description: "Completed 10,000-seater modern stadium hosting national sports tournaments.",
+        impact: "Boosted local tourism and sports revenue by KSh 120M annually.",
+        year: "2023-2024"
+      }
+    ],
+    ties: { uhuru: true, ruto: false, gachagua: false, details: "Key ODM leader & loyal ally of Raila Odinga." },
+    votes: { financeBill2024: "NO", financeBill2025: "NO", notes2024: "Challenged revenue allocation cuts.", notes2025: "Opposed eco tax on lake transport." },
+    bio: "Governor of Homa Bay County, former Woman Representative for Homa Bay, and Chair of National Assembly PAC.",
+    termInOffice: "2022 - Present (Governor) / 2013 - 2022 (Woman Rep)",
+    keyPositionsHeld: ["Governor Homa Bay County", "Chairperson National Assembly PAC", "Woman Rep"],
+    photoUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "gov-3",
+    name: "Anne Waiguru",
+    position: "Governor",
+    county: "Kirinyaga",
+    party: "UDA",
+    isIndependent: false,
+    tagColor: "red",
+    tagReason: "Former Chair of Council of Governors & 2-term Kirinyaga Governor. Former CS Devolution during NYS 1 inquiry.",
+    corruptionStatus: "alleged",
+    corruptionDetails: "EACC inquiries regarding NYS 1 procurement (2015) & Kirinyaga county assembly impeachment motion in 2020.",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Built Kerugoya Level 5 Hospital (340-bed ultramodern complex)",
+      "Wezesha Kirinyaga Economic Program benefiting 20,000 poultry & avocado farmers"
+    ],
+    ties: { uhuru: true, ruto: true, gachagua: false, details: "Former Chair Council of Governors (2022-2024)." },
+    votes: { financeBill2024: "YES", financeBill2025: "YES", notes2024: "Defended Kenya Kwanza fiscal measures.", notes2025: "Supported housing levy for counties." },
+    bio: "Governor of Kirinyaga County, former Chairperson Council of Governors, and CS Devolution & Planning.",
+    termInOffice: "2017 - Present",
+    keyPositionsHeld: ["Governor Kirinyaga County", "Chairperson Council of Governors", "CS Devolution"],
+    photoUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "gov-4",
+    name: "George Natembeya",
+    position: "Governor",
+    county: "Trans Nzoia",
+    party: "DAPK",
+    isIndependent: false,
+    tagColor: "green",
+    tagReason: "Governor of Trans Nzoia. Former Rift Valley Regional Commissioner known for uncompromising stance against banditry & corruption.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Eliminated ghost workers saving Trans Nzoia KSh 240M annually",
+      "Completed Kitale Teaching & Referral Hospital construction",
+      "Pioneered 'Tawe' anti-graft civic movement in Western Kenya"
+    ],
+    ties: { uhuru: true, ruto: false, gachagua: false, details: "Former Regional Commissioner under Uhuru Kenyatta." },
+    votes: { financeBill2024: "NO", financeBill2025: "NO", notes2024: "Opposed farm input taxation.", notes2025: "Vocal defender of maize farmers." },
+    bio: "Governor of Trans Nzoia County, former Rift Valley Regional Commissioner, and Senior Administrator.",
+    termInOffice: "2022 - Present",
+    keyPositionsHeld: ["Governor Trans Nzoia", "Rift Valley Regional Commissioner", "County Commissioner"],
+    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "gov-5",
+    name: "Simba Arati",
+    position: "Governor",
+    county: "Kisii",
+    party: "ODM",
+    isIndependent: false,
+    tagColor: "green",
+    tagReason: "Governor of Kisii County. Former 2-term MP for Dagoretti North known for aggressive audit of inherited county payroll.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Exposed 1,300+ ghost workers in Kisii County assembly",
+      "Constructed 15 new modern maternity wards in rural health centers"
+    ],
+    ties: { uhuru: false, ruto: false, gachagua: false, details: "ODM National Deputy Party Leader." },
+    votes: { financeBill2024: "NO", financeBill2025: "NO", notes2024: "Opposed health funding cuts.", notes2025: "Challenged county allocation drops." },
+    bio: "Governor of Kisii County and former MP for Dagoretti North Constituency.",
+    termInOffice: "2022 - Present (Governor) / 2013 - 2022 (MP)",
+    keyPositionsHeld: ["Governor Kisii County", "MP Dagoretti North"],
+    photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "gov-6",
+    name: "Dr. Irungu Kang'ata",
+    position: "Governor",
+    county: "Murang'a",
+    party: "UDA",
+    isIndependent: false,
+    tagColor: "green",
+    tagReason: "Governor of Murang'a County. Pioneered 'Kang'ata Care' universal health cover and automated agricultural smart subsidies.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Enrolled 50,000 vulnerable families into free 'Kang'ata Care' health insurance",
+      "Pioneered automated milk and avocado farmer minimum guaranteed price subsidy",
+      "Fully digitized all county hospital records"
+    ],
+    ties: { uhuru: true, ruto: true, gachagua: false, details: "Former Senate Majority Chief Whip." },
+    votes: { financeBill2024: "YES", financeBill2025: "YES", notes2024: "Supported K Kwanza policies.", notes2025: "Advocated for county revenue share." },
+    bio: "Governor of Murang'a County, former Senator for Murang'a, MP for Kiharu, and Councillor for Township Ward.",
+    termInOffice: "2022 - Present",
+    keyPositionsHeld: ["Governor Murang'a County", "Senator Murang'a", "MP Kiharu"],
+    photoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "gov-7",
+    name: "Abdulswamad Shariff Nassir",
+    position: "Governor",
+    county: "Mombasa",
+    party: "ODM",
+    isIndependent: false,
+    tagColor: "green",
+    tagReason: "Governor of Mombasa County. Former 2-term MP for Mvita and Chairman of National Assembly Public Investments Committee (PIC).",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Wiped out KSh 800M historical hospital medical debt for Mombasa residents",
+      "Established Coast General Hospital Heart & Cancer Treatment Center"
+    ],
+    ties: { uhuru: false, ruto: false, gachagua: false, details: "Senior ODM Coastal political leader." },
+    votes: { financeBill2024: "NO", financeBill2025: "NO", notes2024: "Opposed port tax increases.", notes2025: "Voted NO to fuel tax." },
+    bio: "Governor of Mombasa County, former MP for Mvita, and PIC Chairman.",
+    termInOffice: "2022 - Present (Governor) / 2013 - 2022 (MP)",
+    keyPositionsHeld: ["Governor Mombasa County", "MP Mvita", "Chairman PIC"],
+    photoUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "gov-8",
+    name: "James Orengo",
+    position: "Governor",
+    county: "Siaya",
+    party: "ODM",
+    isIndependent: false,
+    tagColor: "green",
+    tagReason: "Governor of Siaya County. Senior Counsel (SC), human rights lawyer, former 2-term Senator, and Minister for Lands.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Led constitutional petitions defending judicial independence",
+      "Constructed Siaya Rice Mill processing plant in Alego Usonga"
+    ],
+    ties: { uhuru: true, ruto: false, gachagua: false, details: "Former Senate Minority Leader and key legal advisor to Raila Odinga." },
+    votes: { financeBill2024: "NO", financeBill2025: "NO", notes2024: "Opposed tax bills in court.", notes2025: "Challenged executive tax decrees." },
+    bio: "Governor of Siaya County, Senior Counsel, former Senator for Siaya, MP for Ugenya, and Minister for Lands.",
+    termInOffice: "2022 - Present (Governor) / 2013 - 2022 (Senator)",
+    keyPositionsHeld: ["Governor Siaya County", "Senate Minority Leader", "Minister for Lands"],
+    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+  },
+
+  // ==========================================
+  // 4. SENATORS (COUNTY REPRESENTATIVES)
+  // ==========================================
+  {
+    id: "sen-1",
+    name: "Edwin Sifuna",
+    position: "Senator",
+    county: "Nairobi",
+    party: "ODM",
+    isIndependent: false,
+    tagColor: "green",
+    tagReason: "Senator for Nairobi City County & Secretary General of ODM. Voted NO to Finance Bill 2024 & 2025 in Senate.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Relentlessly audited Nairobi County revenue spending & health centers",
+      "Voted NO to Finance Bills and Housing Levy deductions",
+      "Co-sponsored Kenya Youth Employment & Accountability Motion"
+    ],
+    ties: { uhuru: false, ruto: false, gachagua: false, details: "Secretary General of ODM Party." },
+    votes: {
+      financeBill2024: "NO",
+      financeBill2025: "NO",
+      notes2024: "Voted NO in Senate and rallied Gen-Z civic awareness.",
+      notes2025: "Voted NO on eco-levy and tax amendments."
+    },
+    bio: "Senator for Nairobi City County, High Court Advocate, and Secretary General of ODM.",
+    termInOffice: "2022 - Present",
+    keyPositionsHeld: ["Senator Nairobi County", "Secretary General ODM Party"],
+    photoUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "sen-2",
+    name: "Aaron Cheruiyot",
+    position: "Senator",
+    county: "Kericho",
+    party: "UDA",
+    isIndependent: false,
+    tagColor: "red",
+    tagReason: "Senate Majority Leader & Senator for Kericho. Voted YES to Finance Bill 2024 & 2025. Co-sponsored Executive legislation.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: false,
+    ties: { uhuru: false, ruto: true, gachagua: true, details: "Senate Leader of Majority Party championing Kenya Kwanza bills." },
+    votes: {
+      financeBill2024: "YES",
+      financeBill2025: "YES",
+      notes2024: "Whipped coalition Senators to vote YES.",
+      notes2025: "Voted YES to 2025 taxation."
+    },
+    bio: "Senate Leader of Majority Party and 2-term Senator for Kericho County.",
+    termInOffice: "2016 - Present",
+    keyPositionsHeld: ["Senate Majority Leader", "Senator Kericho County"],
+    photoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "sen-3",
+    name: "Okiya Omtatah Okoiti",
+    position: "Senator",
+    county: "Busia",
+    party: "NRA (NRA Party)",
+    isIndependent: true,
+    tagColor: "green",
+    tagReason: "Senator for Busia County & renowned Human Rights Litigant. Filed landmark High Court petition challenging Finance Act 2023 & 2024.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Won 100+ public interest litigation cases saving Kenya KSh 400B+ in illegal contracts",
+      "Single-handedly petitioned High Court to strike down illegal Housing Levy clauses",
+      "Maintains 100% attendance record in Senate with zero corruption queries"
+    ],
+    ties: { uhuru: false, ruto: false, gachagua: false, details: "Independent civic crusader." },
+    votes: {
+      financeBill2024: "NO",
+      financeBill2025: "NO",
+      notes2024: "Voted NO in Senate and petitioned High Court.",
+      notes2025: "Voted NO to all revenue tax hikes."
+    },
+    bio: "Senator for Busia County, public interest activist, and founder of National Regulatory Authority.",
+    termInOffice: "2022 - Present",
+    keyPositionsHeld: ["Senator Busia County", "Public Interest Activist"],
+    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "sen-4",
+    name: "Samson Cherargei",
+    position: "Senator",
+    county: "Nandi",
+    party: "UDA",
+    isIndependent: false,
+    tagColor: "red",
+    tagReason: "Senator for Nandi County. Sponsored controversial bill proposing extension of presidential and MP terms from 5 to 7 years.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: false,
+    ties: { uhuru: false, ruto: true, gachagua: true, details: "Vocal Kenya Kwanza defender." },
+    votes: { financeBill2024: "YES", financeBill2025: "YES", notes2024: "Voted YES.", notes2025: "Voted YES." },
+    bio: "2-term Senator for Nandi County and former Chair of Senate Justice & Legal Affairs Committee.",
+    termInOffice: "2017 - Present",
+    keyPositionsHeld: ["Senator Nandi County", "Chairperson JLAC"],
+    photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "sen-5",
+    name: "Dr. Boni Khalwale",
+    position: "Senator",
+    county: "Kakamega",
+    party: "UDA",
+    isIndependent: false,
+    tagColor: "purple",
+    tagReason: "Senate Majority Chief Whip & Senator for Kakamega. Known as 'Bullfighter' with mixed voting record on public tax measures.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Chaired Public Accounts Committee in 10th Parliament exposing Grand Regency hotel sale",
+      "Vocal defender of Western Kenya sugar factory rehabilitation"
+    ],
+    ties: { uhuru: false, ruto: true, gachagua: false, details: "Senate Majority Chief Whip." },
+    votes: { financeBill2024: "YES", financeBill2025: "YES", notes2024: "Voted YES as Whip.", notes2025: "Supported K Kwanza tax votes." },
+    bio: "Senator for Kakamega County, Medical Doctor, former MP for Ikolomani, and PAC Chairman.",
+    termInOffice: "2022 - Present (Senator) / 2002 - 2017 (MP & Senator)",
+    keyPositionsHeld: ["Senate Majority Chief Whip", "Senator Kakamega", "MP Ikolomani"],
+    photoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300"
+  },
+
+  // ==========================================
+  // 5. MEMBERS OF PARLIAMENT (MP)
+  // ==========================================
+  {
+    id: "mp-1",
+    name: "Kimani Ichung'wah",
+    position: "MP",
+    county: "Kiambu",
+    constituency: "Kikuyu",
+    party: "UDA",
+    isIndependent: false,
+    tagColor: "red",
+    tagReason: "Leader of Majority in National Assembly. Primary sponsor & defender of Finance Bill 2024 & 2025.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: false,
+    ties: { uhuru: false, ruto: true, gachagua: true, details: "National Assembly Majority Leader." },
+    votes: { financeBill2024: "YES", financeBill2025: "YES", notes2024: "Sponsored Finance Bill 2024.", notes2025: "Voted YES." },
+    bio: "3-term MP for Kikuyu Constituency and National Assembly Leader of Majority Party.",
+    termInOffice: "2013 - Present",
+    keyPositionsHeld: ["Leader of Majority Party", "MP Kikuyu"],
+    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "mp-2",
     name: "Ndindi Nyoro",
     position: "MP",
     county: "Murang'a",
@@ -41,53 +808,35 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     party: "UDA",
     isIndependent: false,
     tagColor: "red",
-    tagReason: "Voted YES to Finance Bill 2024. Chairperson of Budget Committee closely tied to Ruto administration.",
+    tagReason: "Chairperson of Budget and Appropriations Committee. Voted YES to Finance Bill 2024 & 2025, but highly rated for local Constituency CDF projects.",
     corruptionStatus: "clean",
     sexualViolenceStatus: "clean",
     robberyCrimeStatus: "clean",
     isGoodLeaderChampion: true,
     goodLeaderHighlights: [
-      "Subsidized high school education program in Kiharu (Kiharu Masomo Bora)",
-      "Paved over 80km of rural access roads",
-      "Constructed 45 modern ICT laboratories in local schools"
+      "Subsidized secondary education program in Kiharu (Kiharu Masomo Bora)",
+      "Tiled and renovated all 112 public primary schools in Kiharu",
+      "Built 45 modern ICT laboratories for local youth"
     ],
     developmentProjects: [
       {
-        id: "proj-1",
-        title: "Kiharu Masomo Bora School Tiling & Renovation",
+        id: "proj-ny-1",
+        title: "Kiharu Masomo Bora School Renovation",
         category: "Education",
-        description: "Tiled floors and modernized classrooms for all public primary schools in Kiharu Constituency.",
-        impact: "Benefited 32,000+ primary school pupils across Murang'a County.",
+        description: "Renovated & tiled floors of all primary schools across Kiharu Constituency.",
+        impact: "Benefited 32,000+ pupils with subsidized school fees.",
         year: "2023-2024"
-      },
-      {
-        id: "proj-2",
-        title: "Community Solar Water Boreholes",
-        category: "Water & Sanitation",
-        description: "Installed 12 high-capacity solar boreholes supplying clean piped water.",
-        impact: "Access to clean water for 15,000 households.",
-        year: "2024"
       }
     ],
-    ties: {
-      uhuru: false,
-      ruto: true,
-      gachagua: true,
-      details: "Chair of Budget and Appropriations Committee key to driving Ruto Kenya Kwanza financial budget."
-    },
-    votes: {
-      financeBill2024: "YES",
-      financeBill2025: "YES",
-      notes2024: "Defended revenue target figures in Parliament.",
-      notes2025: "Voted YES."
-    },
-    bio: "MP for Kiharu and National Assembly Budget Committee Chair.",
+    ties: { uhuru: false, ruto: true, gachagua: true, details: "National Assembly Budget Committee Chair." },
+    votes: { financeBill2024: "YES", financeBill2025: "YES", notes2024: "Voted YES to tax targets.", notes2025: "Voted YES." },
+    bio: "2-term MP for Kiharu Constituency and Chairman Budget & Appropriations Committee.",
     termInOffice: "2017 - Present",
-    keyPositionsHeld: ["Chairperson Budget & Appropriations Committee"],
+    keyPositionsHeld: ["Chairperson Budget & Appropriations Committee", "MP Kiharu"],
     photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
   },
   {
-    id: "cand-3",
+    id: "mp-3",
     name: "Babu Owino (Paul Ongili)",
     position: "MP",
     county: "Nairobi",
@@ -95,46 +844,26 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     party: "ODM",
     isIndependent: false,
     tagColor: "green",
-    tagReason: "Voted NO to Finance Bill 2024 & 2025. Vocal opponent of government taxation policy with clean corruption conviction record.",
+    tagReason: "Voted NO to Finance Bill 2024 & 2025. Vocal youth leader providing free nationwide online KCPE/KCSE revision masterclasses.",
     corruptionStatus: "clean",
     sexualViolenceStatus: "clean",
     robberyCrimeStatus: "alleged",
-    robberyCrimeDetails: "Faced previous assault and public disturbance charges; acquitted in main firearm misfire case.",
+    robberyCrimeDetails: "2020 B-Club shooting incident (case settled out of court with victim DJ Evolve).",
     isGoodLeaderChampion: true,
     goodLeaderHighlights: [
-      "Online university & high school revision masterclasses for underprivileged youth",
-      "Full bursary distribution program covering 5,000+ Embakasi East students",
-      "Built Jacaranda modern health center extension"
+      "Provides free online mathematics & science revision classes reaching 2M+ students",
+      "Allocated 100% of Embakasi East NG-CDF bursary to vulnerable students",
+      "Voted NO to all tax bills in Parliament"
     ],
-    developmentProjects: [
-      {
-        id: "proj-3",
-        title: "Embakasi East Education Bursary Drive",
-        category: "Education",
-        description: "Equitable 100% bursary allocation for needy secondary and tertiary students.",
-        impact: "Over 8,500 students supported annually.",
-        year: "2022-2025"
-      }
-    ],
-    ties: {
-      uhuru: false,
-      ruto: false,
-      gachagua: false,
-      details: "No executive coalition alignment. Consistently opposes Kenya Kwanza revenue proposals."
-    },
-    votes: {
-      financeBill2024: "NO",
-      financeBill2025: "NO",
-      notes2024: "Voted NO on all second reading clauses for 2024 Finance Bill.",
-      notes2025: "Voted NO to 2025 proposals."
-    },
-    bio: "MP for Embakasi East and youth advocate focused on education and economic accountability.",
+    ties: { uhuru: false, ruto: false, gachagua: false, details: "Vocal ODM MP." },
+    votes: { financeBill2024: "NO", financeBill2025: "NO", notes2024: "Voted NO on all clauses.", notes2025: "Voted NO." },
+    bio: "2-term MP for Embakasi East and former SONU Student Union President.",
     termInOffice: "2017 - Present",
-    keyPositionsHeld: ["Member of Committee on Education"],
-    photoUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300"
+    keyPositionsHeld: ["MP Embakasi East", "SONU President"],
+    photoUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=300"
   },
   {
-    id: "cand-4",
+    id: "mp-4",
     name: "Dr. Otiende Amollo",
     position: "MP",
     county: "Siaya",
@@ -142,459 +871,596 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     party: "ODM",
     isIndependent: false,
     tagColor: "green",
-    tagReason: "Voted NO to Finance Bill 2024 & 2025. 100% Clean Integrity record, zero criminal/corruption cases, renowned community housing builder.",
+    tagReason: "Senior Counsel (SC), MP for Rarieda. Voted NO to Finance Bill 2024. Runs 'Onyek Wonjo' pro-bono housing project for rural widows.",
     corruptionStatus: "clean",
     sexualViolenceStatus: "clean",
     robberyCrimeStatus: "clean",
     isGoodLeaderChampion: true,
     goodLeaderHighlights: [
-      "Onyek Wonjo Housing Project: Built over 900 decent homes for vulnerable widows and elderly citizens",
-      "Zero corruption charges throughout Ombudsman and parliamentary tenure",
-      "Voted NO to punitive taxes on basic goods and medical supplies"
+      "Built 750+ decent brick houses for underprivileged widows in Rarieda",
+      "Voted NO to Finance Bill 2024 & led constitutional law litigation",
+      "Former Ombudsman (Chairperson Commission on Administrative Justice)"
     ],
-    developmentProjects: [
-      {
-        id: "proj-4",
-        title: "Onyek Wonjo Shelter & Decent Housing Initiative",
-        category: "Infrastructure",
-        description: "Constructed iron-sheet & brick homes for disadvantaged families across Rarieda.",
-        impact: "Restored dignity to 950+ families in rural Siaya.",
-        year: "2018-2025"
-      },
-      {
-        id: "proj-5",
-        title: "Rarieda Technical Training Institute Extension",
-        category: "Education",
-        description: "Expanded vocational workshops and TVET equipment for youth skill acquisition.",
-        impact: "Trained 1,200 local youth in carpentry, welding, and IT.",
-        year: "2023"
-      }
-    ],
-    ties: {
-      uhuru: false,
-      ruto: false,
-      gachagua: false,
-      details: "Consistently voted against executive revenue taxation bills."
-    },
-    votes: {
-      financeBill2024: "NO",
-      financeBill2025: "NO",
-      notes2024: "Voted NO and highlighted constitutional violations in eco-levy provisions.",
-      notes2025: "Voted NO."
-    },
-    bio: "Senior Counsel and MP for Rarieda Constituency. Former Chairperson of the Commission on Administrative Justice (Ombudsman).",
+    ties: { uhuru: true, ruto: false, gachagua: false, details: "Senior Counsel & ODM legal legal lead." },
+    votes: { financeBill2024: "NO", financeBill2025: "NO", notes2024: "Voted NO in National Assembly.", notes2025: "Voted NO." },
+    bio: "2-term MP for Rarieda, Senior Counsel, and former Chairperson Commission on Administrative Justice (Ombudsman).",
     termInOffice: "2017 - Present",
-    keyPositionsHeld: ["Member Justice and Legal Affairs Committee", "Former Ombudsman Chair"],
+    keyPositionsHeld: ["MP Rarieda", "Chairperson Ombudsman Commission", "Co-Chair Committee of Experts 2010 Constitution"],
     photoUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=300"
   },
   {
-    id: "cand-5",
-    name: "Naisula Lesuuda",
+    id: "mp-5",
+    name: "Millie Odhiambo",
     position: "MP",
-    county: "Samburu",
-    constituency: "Samburu West",
-    party: "KANU",
+    county: "Homa Bay",
+    constituency: "Suba North",
+    party: "ODM",
     isIndependent: false,
     tagColor: "green",
-    tagReason: "Voted NO to Finance Bill 2024 & 2025. Clean track record advocating for pastoralist peace, girl child education, zero corruption charges.",
+    tagReason: "3-term MP for Suba North. Voted NO to Finance Bill 2024 & 2025. Fierce defender of child rights and gender equality laws.",
     corruptionStatus: "clean",
     sexualViolenceStatus: "clean",
     robberyCrimeStatus: "clean",
     isGoodLeaderChampion: true,
     goodLeaderHighlights: [
-      "Peace Caravans reducing inter-community cattle rustling in Samburu",
-      "Rescued over 400 girls from FGM and early child marriages into full secondary scholarships",
-      "Clean financial audit record on NG-CDF disbursement"
+      "Sponsored the Counter-Trafficking in Persons Act & Protection of Victims Act",
+      "Voted NO to all tax hikes on basic food commodities",
+      "Consistently achieved top NG-CDF audit ratings in Nyanza"
     ],
-    developmentProjects: [
-      {
-        id: "proj-6",
-        title: "Samburu Girls Education & Empowerment Complex",
-        category: "Education",
-        description: "Constructed boarding dormitories and safe learning space for rescue girls.",
-        impact: "Over 600 pastoralist girls enrolled in secondary education.",
-        year: "2021-2024"
-      }
-    ],
-    ties: {
-      uhuru: false,
-      ruto: false,
-      gachagua: false,
-      details: "Independent parliamentary voting record prioritizing pastoralist livelihoods."
-    },
-    votes: {
-      financeBill2024: "NO",
-      financeBill2025: "NO",
-      notes2024: "Voted NO on second and third readings.",
-      notes2025: "Voted NO."
-    },
-    bio: "MP for Samburu West, former journalist, and peace ambassador.",
-    termInOffice: "2017 - Present",
-    keyPositionsHeld: ["Chair Regional Integration Committee"],
-    photoUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300"
-  },
-  {
-    id: "cand-6",
-    name: "Grace Njeri Wanjiku",
-    position: "MCA",
-    county: "Nairobi",
-    ward: "Roysambu Ward",
-    party: "Independent",
-    isIndependent: true,
-    tagColor: "green",
-    tagReason: "Independent MCA with 100% clean legal record. Championed ward drainage systems, youth vocational grants, and anti-corruption oversight.",
-    corruptionStatus: "clean",
-    sexualViolenceStatus: "clean",
-    robberyCrimeStatus: "clean",
-    isGoodLeaderChampion: true,
-    goodLeaderHighlights: [
-      "Constructed Roysambu Ward Community Health Center Annex",
-      "Installed 60+ street lights eliminating mugging hot-spots",
-      "Transparent ward bursary vetting committee open to public audit"
-    ],
-    developmentProjects: [
-      {
-        id: "proj-7",
-        title: "Roysambu Solar Street Lighting Project",
-        category: "Infrastructure",
-        description: "Erected solar-powered streetlights across high-density residential walkways.",
-        impact: "Reduced night-time crime incidents by 65% in Mirema and Zimmerman.",
-        year: "2024"
-      }
-    ],
-    ties: {
-      uhuru: false,
-      ruto: false,
-      gachagua: false,
-      details: "Serves as an independent county assembly member without party control."
-    },
-    votes: {
-      financeBill2024: "NOT_IN_OFFICE",
-      financeBill2025: "NOT_IN_OFFICE",
-      notes2024: "County Assembly member, rejected local county revenue hikes.",
-      notes2025: "Opposed county land rate hikes."
-    },
-    bio: "Community activist and MCA for Roysambu Ward, Nairobi County.",
-    termInOffice: "2022 - Present",
-    keyPositionsHeld: ["Chairperson County Planning & Housing Committee"],
+    ties: { uhuru: true, ruto: false, gachagua: false, details: "Senior ODM female MP." },
+    votes: { financeBill2024: "NO", financeBill2025: "NO", notes2024: "Voted NO.", notes2025: "Voted NO." },
+    bio: "3-term MP for Suba North (formerly Mbita), Advocate of the High Court, and child rights champion.",
+    termInOffice: "2008 - Present",
+    keyPositionsHeld: ["MP Suba North", "Nominated MP"],
     photoUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300"
   },
   {
-    id: "cand-7",
-    name: "Moses Kuria",
-    position: "Governor",
-    county: "Kiambu",
-    party: "CCK / UDA",
+    id: "mp-6",
+    name: "Felix Odiwuor (Jalang'o)",
+    position: "MP",
+    county: "Nairobi",
+    constituency: "Lang'ata",
+    party: "ODM",
     isIndependent: false,
-    tagColor: "red",
-    tagReason: "Documented hate speech allegations, EACC query files, and strong executive cabinet alignment.",
-    corruptionStatus: "charged",
-    corruptionDetails: "Investigated by EACC over ministry procurement anomalies and public asset disposal contracts.",
+    tagColor: "purple",
+    tagReason: "MP for Lang'ata Constituency. Voted YES to Finance Bill provisions after joining President Ruto's State House consultative team.",
+    corruptionStatus: "clean",
     sexualViolenceStatus: "clean",
-    robberyCrimeStatus: "alleged",
-    robberyCrimeDetails: "Past charges related to political brawl and incitement to violence.",
+    robberyCrimeStatus: "clean",
     isGoodLeaderChampion: false,
-    ties: {
-      uhuru: true,
-      ruto: true,
-      gachagua: false,
-      details: "Former Cabinet Secretary under Ruto and former MP under Jubilee era."
-    },
-    votes: {
-      financeBill2024: "NOT_IN_OFFICE",
-      financeBill2025: "NOT_IN_OFFICE",
-      notes2024: "Supported Executive tax measures.",
-      notes2025: "Cabinet endorsement."
-    },
-    bio: "Former Cabinet Secretary for Public Service and former Gatundu South MP.",
-    termInOffice: "2014 - Present",
-    keyPositionsHeld: ["Former Cabinet Secretary for Trade & Industry", "Former MP Gatundu South"],
-    photoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300"
+    ties: { uhuru: false, ruto: true, gachagua: false, details: "Rebel ODM MP working with Kenya Kwanza government." },
+    votes: { financeBill2024: "YES", financeBill2025: "YES", notes2024: "Voted YES on key taxation clauses.", notes2025: "Voted YES." },
+    bio: "First-term MP for Lang'ata Constituency, former media personality, comedian, and philanthropist.",
+    termInOffice: "2022 - Present",
+    keyPositionsHeld: ["MP Lang'ata Constituency"],
+    photoUrl: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&q=80&w=300"
+  },
+
+  // ==========================================
+  // 6. WOMAN REPRESENTATIVES (COUNTY FEMALE REPS)
+  // ==========================================
+  {
+    id: "wrep-1",
+    name: "Esther Passaris",
+    position: "Woman Rep",
+    county: "Nairobi",
+    party: "ODM",
+    isIndependent: false,
+    tagColor: "purple",
+    tagReason: "Woman Representative for Nairobi City County. Voted YES to Finance Bill 2023 & Housing Levy, causing public friction with ODM party line.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Pioneered National Government Affirmative Action Fund (NGAAF) sanitary pad distribution to 150,000 girls",
+      "Established Nairobi Business Incubation hubs for women entrepreneurs"
+    ],
+    ties: { uhuru: true, ruto: true, gachagua: false, details: "Nairobi Woman Rep working across bipartisan lines." },
+    votes: { financeBill2024: "YES", financeBill2025: "YES", notes2024: "Voted YES to Housing Levy clauses.", notes2025: "Supported K Kwanza tax policy." },
+    bio: "2-term Woman Representative for Nairobi City County, entrepreneur, and founder of Adopt-A-Light.",
+    termInOffice: "2017 - Present",
+    keyPositionsHeld: ["Woman Representative Nairobi County"],
+    photoUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300"
   },
   {
-    id: "cand-8",
-    name: "Jackson Mandago",
-    position: "Senator",
+    id: "wrep-2",
+    name: "Gladys Boss Shollei",
+    position: "Woman Rep",
     county: "Uasin Gishu",
     party: "UDA",
     isIndependent: false,
     tagColor: "red",
-    tagReason: "Charged in magistrate court over Finland Overseas Education Fraud Scandal involving Ksh 1.1 Billion. Voted YES to Finance Bills.",
-    corruptionStatus: "charged",
-    corruptionDetails: "Charged alongside county officials in Nakuru Law Courts over misplacement of Ksh 1.1B student scholarship fund.",
+    tagReason: "Deputy Speaker of the National Assembly & Woman Rep for Uasin Gishu. Staunch defender of Executive bills.",
+    corruptionStatus: "clean",
     sexualViolenceStatus: "clean",
     robberyCrimeStatus: "clean",
     isGoodLeaderChampion: false,
-    ties: {
-      uhuru: false,
-      ruto: true,
-      gachagua: true,
-      details: "Senior UDA leader in Uasin Gishu County."
-    },
-    votes: {
-      financeBill2024: "YES",
-      financeBill2025: "YES",
-      notes2024: "Voted YES to Senate revenue allocation bills.",
-      notes2025: "Voted YES."
-    },
-    bio: "Senator for Uasin Gishu County and former 2-term Governor.",
-    termInOffice: "2013 - Present",
-    keyPositionsHeld: ["Senator Uasin Gishu", "Former Governor Uasin Gishu"],
-    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+    ties: { uhuru: false, ruto: true, gachagua: true, details: "Deputy Speaker of National Assembly." },
+    votes: { financeBill2024: "YES", financeBill2025: "YES", notes2024: "Presided over and voted YES.", notes2025: "Voted YES." },
+    bio: "Deputy Speaker of National Assembly, 2-term Woman Rep Uasin Gishu, and former Chief Registrar of the Judiciary.",
+    termInOffice: "2017 - Present",
+    keyPositionsHeld: ["Deputy Speaker National Assembly", "Woman Rep Uasin Gishu", "Chief Registrar Judiciary"],
+    photoUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300"
   },
   {
-    id: "cand-9",
-    name: "James Githinji Maina",
-    position: "MCA",
-    county: "Nakuru",
-    ward: "Viwandani Ward",
+    id: "wrep-3",
+    name: "Cynthia Muge",
+    position: "Woman Rep",
+    county: "Nandi",
     party: "UDA",
     isIndependent: false,
     tagColor: "red",
-    tagReason: "MCA charged in Nakuru Chief Magistrate Court with armed robbery and violent assault following a quarry tender dispute.",
-    corruptionStatus: "alleged",
-    corruptionDetails: "Under EACC inquiry over ward development fund kickbacks.",
+    tagReason: "Youngest Woman Representative in 13th Parliament. Former MCA for Kilibwoni Ward.",
+    corruptionStatus: "clean",
     sexualViolenceStatus: "clean",
-    robberyCrimeStatus: "charged",
-    robberyCrimeDetails: "Charged under Penal Code Section 296(2) (Robbery with Violence) for violent raid on competitor premises.",
-    isGoodLeaderChampion: false,
-    ties: {
-      uhuru: false,
-      ruto: true,
-      gachagua: false,
-      details: "Nakuru Assembly member sponsored on UDA ticket."
-    },
-    votes: {
-      financeBill2024: "NOT_IN_OFFICE",
-      financeBill2025: "NOT_IN_OFFICE",
-      notes2024: "Voted FOR county tax & market fee increases.",
-      notes2025: "Voted FOR fee hikes."
-    },
-    bio: "Member of County Assembly for Viwandani Ward, Nakuru County.",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Equipped 85 rural youth vocational centers in Nandi County",
+      "Pioneered dairy farming value-addition grants for women groups"
+    ],
+    ties: { uhuru: false, ruto: true, gachagua: false, details: "UDA parliamentary member." },
+    votes: { financeBill2024: "YES", financeBill2025: "YES", notes2024: "Voted YES.", notes2025: "Voted YES." },
+    bio: "Woman Representative for Nandi County and former Independent MCA for Kilibwoni Ward.",
+    termInOffice: "2022 - Present (Woman Rep) / 2017 - 2022 (MCA)",
+    keyPositionsHeld: ["Woman Representative Nandi", "MCA Kilibwoni Ward"],
+    photoUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "wrep-4",
+    name: "Zamzam Mohammed",
+    position: "Woman Rep",
+    county: "Mombasa",
+    party: "ODM",
+    isIndependent: false,
+    tagColor: "green",
+    tagReason: "Woman Representative for Mombasa County. Voted NO to Finance Bill 2024 tax hikes.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Provided micro-capital grants to 4,000 female fish traders in Mombasa",
+      "Voted NO to all taxes on basic food commodities"
+    ],
+    ties: { uhuru: false, ruto: false, gachagua: false, details: "ODM Coastal MP." },
+    votes: { financeBill2024: "NO", financeBill2025: "NO", notes2024: "Voted NO.", notes2025: "Voted NO." },
+    bio: "Woman Representative for Mombasa County and community activist.",
     termInOffice: "2022 - Present",
-    keyPositionsHeld: ["Member County Budget Committee"],
+    keyPositionsHeld: ["Woman Representative Mombasa County"],
+    photoUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300"
+  },
+
+  // ==========================================
+  // 7. MEMBERS OF COUNTY ASSEMBLY (MCA)
+  // ==========================================
+  {
+    id: "mca-1",
+    name: "Alvin Olando Palapala",
+    position: "MCA",
+    county: "Nairobi",
+    constituency: "Westlands",
+    ward: "Kitisuru Ward",
+    party: "ODM",
+    isIndependent: false,
+    tagColor: "green",
+    tagReason: "MCA for Kitisuru Ward. Championed ward development funds for informal settlement water connections and youth bursaries.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Constructed 4 public water kiosks in Deep Sea informal settlement",
+      "Pioneered ward-level youth sports tournaments and bursary transparency board"
+    ],
+    ties: { uhuru: false, ruto: false, gachagua: false, details: "Nairobi County Assembly ODM Member." },
+    votes: { financeBill2024: "NO", financeBill2025: "NO", notes2024: "Opposed county land rate hikes.", notes2025: "Voted NO to local levies." },
+    bio: "Member of County Assembly for Kitisuru Ward, Nairobi City County.",
+    termInOffice: "2022 - Present",
+    keyPositionsHeld: ["MCA Kitisuru Ward"],
+    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "mca-2",
+    name: "Robert Alai",
+    position: "MCA",
+    county: "Nairobi",
+    constituency: "Dagoretti North",
+    ward: "Kileleshwa Ward",
+    party: "ODM",
+    isIndependent: false,
+    tagColor: "green",
+    tagReason: "MCA for Kileleshwa Ward. Vocal opponent of illegal high-rise building approvals and noise pollution in residential zones.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Stopped 14 illegal unlicensed high-rise developments in Kileleshwa",
+      "Enforced county noise control bylaws on night clubs near residential areas"
+    ],
+    ties: { uhuru: false, ruto: false, gachagua: false, details: "Nairobi County Assembly Member & tech blogger." },
+    votes: { financeBill2024: "NO", financeBill2025: "NO", notes2024: "Opposed Nairobi Finance Act hikes.", notes2025: "Challenged parking fee increases." },
+    bio: "Member of County Assembly for Kileleshwa Ward, digital campaigner, and blogger.",
+    termInOffice: "2022 - Present",
+    keyPositionsHeld: ["MCA Kileleshwa Ward"],
     photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
   },
   {
-    id: "cand-10",
-    name: "Peter Ombati Makori",
+    id: "mca-3",
+    name: "Hon. Mua Central Representative",
     position: "MCA",
-    county: "Kisii",
-    ward: "Kiamokama Ward",
-    party: "Independent",
-    isIndependent: true,
-    tagColor: "red",
-    tagReason: "Facing criminal trial for defilement and sexual assault of a minor under the Sexual Offences Act.",
-    corruptionStatus: "clean",
-    sexualViolenceStatus: "charged",
-    sexualViolenceDetails: "Charged at Kisii Law Courts under Sexual Offences Act No. 3 of 2006 for alleged defilement of a 16-year-old student.",
-    robberyCrimeStatus: "clean",
-    isGoodLeaderChampion: false,
-    ties: {
-      uhuru: false,
-      ruto: false,
-      gachagua: false,
-      details: "Elected as an Independent Ward Representative."
-    },
-    votes: {
-      financeBill2024: "NOT_IN_OFFICE",
-      financeBill2025: "NOT_IN_OFFICE",
-      notes2024: "Local assembly vote.",
-      notes2025: "Local assembly vote."
-    },
-    bio: "Ward Representative for Kiamokama Ward, Kisii County.",
-    termInOffice: "2022 - Present",
-    keyPositionsHeld: ["Kisii Assembly Member"],
-    photoUrl: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=300"
-  },
-  {
-    id: "cand-11",
-    name: "Ferdinand Waititu (Baba Yao)",
-    position: "Governor",
-    county: "Kiambu",
-    party: "Jubilee",
-    isIndependent: false,
-    tagColor: "red",
-    tagReason: "Convicted / Formally impeached over Ksh 588 Million road tender corruption scandal.",
-    corruptionStatus: "convicted",
-    corruptionDetails: "Impeached by Senate and convicted in Milimani Anti-Corruption Court over Ksh 588M illegal tender award.",
-    sexualViolenceStatus: "clean",
-    robberyCrimeStatus: "alleged",
-    robberyCrimeDetails: "Multiple historical arrests for land grabbing brawls and public violence.",
-    isGoodLeaderChampion: false,
-    ties: {
-      uhuru: true,
-      ruto: true,
-      gachagua: false,
-      details: "Former Kiambu Governor with past executive party ties."
-    },
-    votes: {
-      financeBill2024: "NOT_IN_OFFICE",
-      financeBill2025: "NOT_IN_OFFICE",
-      notes2024: "Not in office.",
-      notes2025: "Not in office."
-    },
-    bio: "Former Governor of Kiambu County and former Kabete MP.",
-    termInOffice: "2017 - 2020 (Impeached)",
-    keyPositionsHeld: ["Former Governor Kiambu", "Former MP Kabete"],
-    photoUrl: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&q=80&w=300"
-  },
-  {
-    id: "cand-12",
-    name: "Dr. Wanami Wamboka",
-    position: "MP",
-    county: "Bungoma",
-    constituency: "Bumula",
-    party: "DAP-K",
+    county: "Machakos",
+    constituency: "Machakos Town",
+    ward: "Mua Ward",
+    party: "Wiper",
     isIndependent: false,
     tagColor: "green",
-    tagReason: "Voted NO to Finance Bill 2024 & 2025. Clean integrity record, led sugarcane farmer relief drives in Western Kenya.",
+    tagReason: "MCA for Mua Ward. Sponsored Machakos County Smallholder Farmer Support Bill.",
     corruptionStatus: "clean",
     sexualViolenceStatus: "clean",
     robberyCrimeStatus: "clean",
     isGoodLeaderChampion: true,
     goodLeaderHighlights: [
-      "Secured Ksh 150M bailout allocation for Nzoia Sugar factory farmers",
-      "Constructed 18 modern science laboratories across Bumula secondary schools",
-      "Voted NO to tax on agricultural fertilizers and farm machinery"
+      "Constructed 3 community earth dams in Mua Hills",
+      "Pioneered free avocado seedling distribution program"
     ],
-    developmentProjects: [
-      {
-        id: "proj-8",
-        title: "Bumula Farmers Input Subsidies & Fertilizer Hub",
-        category: "Infrastructure",
-        description: "Established subsidized lime and fertilizer storage center for smallholder farmers.",
-        impact: "Lowered maize production costs for 12,000 farmers.",
-        year: "2023-2024"
-      }
-    ],
-    ties: {
-      uhuru: false,
-      ruto: false,
-      gachagua: false,
-      details: "Opposition legislator championing consumer relief."
-    },
-    votes: {
-      financeBill2024: "NO",
-      financeBill2025: "NO",
-      notes2024: "Publicly rejected the eco-levy and VAT on basic commodities.",
-      notes2025: "Voted NO."
-    },
-    bio: "Bumula Constituency MP known for parliamentary oversight on government expenditure.",
+    ties: { uhuru: false, ruto: false, gachagua: false, details: "Machakos County Assembly Wiper Member." },
+    votes: { financeBill2024: "NO", financeBill2025: "NO", notes2024: "Opposed farm tax.", notes2025: "Voted NO." },
+    bio: "Member of County Assembly for Mua Ward, Machakos County.",
     termInOffice: "2022 - Present",
-    keyPositionsHeld: ["Vice Chair Public Investments Committee"],
-    photoUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=300"
-  },
-  {
-    id: "cand-13",
-    name: "Samuel Mburu Njoroge",
-    position: "MP",
-    county: "Nakuru",
-    constituency: "Molo",
-    party: "Independent",
-    isIndependent: true,
-    tagColor: "purple",
-    tagReason: "Running by himself as an Independent Candidate with no party ticket. Clean track record.",
-    corruptionStatus: "clean",
-    sexualViolenceStatus: "clean",
-    robberyCrimeStatus: "clean",
-    isGoodLeaderChampion: true,
-    goodLeaderHighlights: [
-      "Molo Peace and Youth Talent Center Construction",
-      "Voted NO to 2024 & 2025 Finance Bills to shield potato and timber farmers",
-      "100% public disclosure of constituency bursary disbursements"
-    ],
-    developmentProjects: [
-      {
-        id: "proj-9",
-        title: "Molo Potato Cold Storage Facility",
-        category: "Infrastructure",
-        description: "Built solar-powered cold room to prevent post-harvest loss for local potato farmers.",
-        impact: "Increased potato farmer margins by 40%.",
-        year: "2024"
-      }
-    ],
-    ties: {
-      uhuru: false,
-      ruto: false,
-      gachagua: false,
-      details: "Unaffiliated candidate campaigning on grassroots agrarian reforms."
-    },
-    votes: {
-      financeBill2024: "NO",
-      financeBill2025: "NO",
-      notes2024: "Voted NO to protecting agricultural inputs from tax hikes.",
-      notes2025: "Voted NO."
-    },
-    bio: "Independent MP candidate representing Molo constituency.",
-    termInOffice: "2022 - Present",
-    keyPositionsHeld: ["Molo Constituency Representative"],
-    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
-  },
-  {
-    id: "cand-14",
-    name: "Sylvanus Osoro",
-    position: "MP",
-    county: "Kisii",
-    constituency: "South Mugirango",
-    party: "UDA",
-    isIndependent: false,
-    tagColor: "red",
-    tagReason: "Majority Chief Whip who voted YES to Finance Bill 2024 & 2025 with strong Ruto administration ties. Past violence charges.",
-    corruptionStatus: "clean",
-    sexualViolenceStatus: "clean",
-    robberyCrimeStatus: "charged",
-    robberyCrimeDetails: "Arrested & charged over violent funeral fight incident and assault of rival politicians.",
-    isGoodLeaderChampion: false,
-    ties: {
-      uhuru: false,
-      ruto: true,
-      gachagua: true,
-      details: "National Assembly Majority Chief Whip enforcing government coalition discipline."
-    },
-    votes: {
-      financeBill2024: "YES",
-      financeBill2025: "YES",
-      notes2024: "Mobilized MPs to pass all tax clauses.",
-      notes2025: "Voted YES."
-    },
-    bio: "MP for South Mugirango and Majority Party Whip in Parliament.",
-    termInOffice: "2017 - Present",
-    keyPositionsHeld: ["Majority Chief Whip"],
+    keyPositionsHeld: ["MCA Mua Ward"],
     photoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300"
   },
   {
-    id: "cand-15",
-    name: "Wanjira Mutahi",
-    position: "Presidential Aspirant",
-    county: "Nairobi",
-    party: "Independent",
-    isIndependent: true,
-    tagColor: "purple",
-    tagReason: "Independent Candidate running by herself with no political party affiliation. Zero corruption cases.",
+    id: "mca-4",
+    name: "Hon. Market Milimani Representative",
+    position: "MCA",
+    county: "Kisumu",
+    constituency: "Kisumu Central",
+    ward: "Market Milimani Ward",
+    party: "ODM",
+    isIndependent: false,
+    tagColor: "green",
+    tagReason: "MCA for Market Milimani Ward. Spearheaded Kisumu CBD trader stalls digitization and drainage maintenance.",
     corruptionStatus: "clean",
     sexualViolenceStatus: "clean",
     robberyCrimeStatus: "clean",
     isGoodLeaderChampion: true,
     goodLeaderHighlights: [
-      "Pioneered citizen audit of national debt and public procurement",
-      "Clean financial record leading non-governmental anti-corruption watchdogs"
+      "Paved 12 km of CBD back-alley pedestrian pathways",
+      "Installed solar streetlights across Kisumu market markets"
     ],
-    ties: {
-      uhuru: false,
-      ruto: false,
-      gachagua: false,
-      details: "Civic movement founder running as an independent presidential candidate."
-    },
-    votes: {
-      financeBill2024: "NOT_IN_OFFICE",
-      financeBill2025: "NOT_IN_OFFICE",
-      notes2024: "Not a sitting MP, led public civic petition against the bill.",
-      notes2025: "Not in office."
-    },
-    bio: "Economic policy specialist and anti-corruption campaigner running for top office as an independent candidate.",
-    termInOffice: "Candidate for 2027",
-    keyPositionsHeld: ["Founding Director, Youth Transparency Initiative"],
+    ties: { uhuru: false, ruto: false, gachagua: false, details: "Kisumu County Assembly Member." },
+    votes: { financeBill2024: "NO", financeBill2025: "NO", notes2024: "Voted NO.", notes2025: "Voted NO." },
+    bio: "Member of County Assembly for Market Milimani Ward, Kisumu County.",
+    termInOffice: "2022 - Present",
+    keyPositionsHeld: ["MCA Market Milimani Ward"],
+    photoUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=300"
+  },
+
+  // ==========================================
+  // 7. 2-TERM GOVERNORS CONTESTING MP SEATS IN 2027 (RED FLAGGED)
+  // ==========================================
+  {
+    id: "gov-tl-1",
+    name: "Hon. Jackson Mandago",
+    position: "MP",
+    county: "Uasin Gishu",
+    constituency: "Turbo Constituency",
+    party: "UDA",
+    isIndependent: false,
+    tagColor: "red",
+    tagReason: "RED FLAG: Served 2 full terms as Governor of Uasin Gishu (2013-2022). Contesting Turbo Constituency MP seat in 2027. Flagged for political elite power recycling and pending Finland Overseas Education Trust corruption trial.",
+    corruptionStatus: "charged",
+    corruptionDetails: "Charged in Nakuru Anti-Corruption Court over KSh 1.1 Billion Finland Student Placement Fraud.",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    ethicsAuditScore: 24,
+    eaccQueryStatus: "Prosecuted / Charged",
+    assetDeclarationDisclosed: false,
+    conflictOfInterestFlags: [
+      "Finland Student Placement Fund Procurement Fraud Charge",
+      "Transition from 2-Term Executive Governor to 2027 MP Candidate (Power Recycling Query)"
+    ],
+    wealthGrowthMultiplier: "14.2x net worth surge",
+    parliamentaryAttendanceScore: 71,
+    citizenRatingScore: 1.7,
+    isTermLimitedGovernorRunningForLowerSeat: true,
+    termLimitedGovernorDetails: "Served two full constitutional terms as Governor of Uasin Gishu (2013-2022). After completing gubernatorial term limits, transited to Senate and has now declared candidacy for Turbo MP in 2027. Flagged by civic groups for seeking parliamentary immunity and retaining state control.",
+    integrityScandals: [
+      {
+        id: "sc-tl-101",
+        year: "2023",
+        title: "KSh 1.1 Billion Finland Education Trust Scandal",
+        severity: "CRITICAL",
+        summary: "Prosecuted in court over millions misappropriated from parents expecting university placements in Finland and Canada.",
+        status: "Court Trial",
+        source: "Office of the Director of Public Prosecutions (ODPP) & Nakuru Anti-Corruption Court"
+      },
+      {
+        id: "sc-tl-102",
+        year: "2027",
+        title: "Red Flag: Term-Limited Governor Contesting MP Seat",
+        severity: "CRITICAL",
+        summary: "Civic Red Flag: Governor who served 2 full terms (10 years) declaring candidacy for MP seat in 2027, creating power-recycling and audit evasion concerns.",
+        status: "Verified Civic Query"
+      }
+    ],
+    isGoodLeaderChampion: false,
+    ties: { uhuru: true, ruto: true, gachagua: false, details: "Former Uasin Gishu Governor & UDA Senator." },
+    votes: { financeBill2024: "YES", financeBill2025: "YES", notes2024: "Voted YES in Senate.", notes2025: "Supported executive taxation." },
+    bio: "Former 2-term Governor of Uasin Gishu County (2013-2022), Uasin Gishu Senator, and 2027 Turbo Constituency MP Aspirant.",
+    termInOffice: "2013 - 2022 (Governor) / 2022 - Present (Senator)",
+    keyPositionsHeld: ["Governor Uasin Gishu (2 Terms)", "Senator Uasin Gishu", "2027 MP Aspirant Turbo"],
+    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "gov-tl-2",
+    name: "Hon. Ali Ibrahim Roba",
+    position: "MP",
+    county: "Mandera",
+    constituency: "Mandera East Constituency",
+    party: "UDM (United Democratic Movement)",
+    isIndependent: false,
+    tagColor: "red",
+    tagReason: "RED FLAG: Served 2 full terms as Governor of Mandera (2013-2022). Declared candidacy for Mandera East MP in 2027. Civically red-flagged for political elite power recycling.",
+    corruptionStatus: "alleged",
+    corruptionDetails: "EACC probe into county road construction contracts and pending bills accrued during gubernatorial tenure.",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    ethicsAuditScore: 32,
+    eaccQueryStatus: "Under Active Probe",
+    assetDeclarationDisclosed: false,
+    conflictOfInterestFlags: [
+      "County Road Infrastructure Tender Queries",
+      "Term-Limited Governor Contesting MP Seat in 2027"
+    ],
+    wealthGrowthMultiplier: "8.8x net worth expansion",
+    parliamentaryAttendanceScore: 78,
+    citizenRatingScore: 2.2,
+    isTermLimitedGovernorRunningForLowerSeat: true,
+    termLimitedGovernorDetails: "Completed maximum 2 terms as Governor of Mandera County (2013-2022). Transitioning to contest Mandera East MP seat in 2027. Red-flagged as an elite power-retention maneuver.",
+    integrityScandals: [
+      {
+        id: "sc-tl-201",
+        year: "2027",
+        title: "Red Flag: Term-Limited Governor Downgrading to MP Seat",
+        severity: "CRITICAL",
+        summary: "Civic Inquiry: 2-Term Governor seeking lower MP seat to retain state influence, security detail, and constituency CDF funds after completing executive term limits.",
+        status: "Verified Civic Query"
+      }
+    ],
+    isGoodLeaderChampion: false,
+    ties: { uhuru: true, ruto: true, gachagua: false, details: "Leader of UDM Party affiliated with Kenya Kwanza." },
+    votes: { financeBill2024: "YES", financeBill2025: "YES", notes2024: "Supported Finance Bill 2024.", notes2025: "Supported executive policy." },
+    bio: "Former 2-term Governor of Mandera County (2013-2022), UDM Party Leader, Mandera Senator, and 2027 MP Aspirant for Mandera East.",
+    termInOffice: "2013 - 2022 (Governor) / 2022 - Present (Senator)",
+    keyPositionsHeld: ["Governor Mandera (2 Terms)", "UDM Party Leader", "Senator Mandera", "2027 MP Aspirant"],
+    photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "gov-tl-3",
+    name: "Hon. Salim Mvurya",
+    position: "MP",
+    county: "Kwale",
+    constituency: "Matuga Constituency",
+    party: "UDA",
+    isIndependent: false,
+    tagColor: "purple",
+    tagReason: "RED FLAG: Served 2 full terms as Governor of Kwale County (2013-2022). Declared intention to contest Matuga MP seat in 2027. Flagged for recycling executive power into legislative seats.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    ethicsAuditScore: 46,
+    eaccQueryStatus: "Cleared",
+    assetDeclarationDisclosed: true,
+    conflictOfInterestFlags: [
+      "Transition from 2-Term Executive Governor to Constituency MP Candidate"
+    ],
+    wealthGrowthMultiplier: "3.2x net worth growth",
+    parliamentaryAttendanceScore: 84,
+    citizenRatingScore: 3.1,
+    isTermLimitedGovernorRunningForLowerSeat: true,
+    termLimitedGovernorDetails: "Served 2 full terms as Kwale Governor (2013-2022), transited to CS Mining/Investments, now eyeing Matuga Constituency MP seat in 2027. Civically red-flagged for recycling executive power into legislative seats.",
+    integrityScandals: [
+      {
+        id: "sc-tl-301",
+        year: "2027",
+        title: "Red Flag: Term-Limited Governor Running for MP Seat",
+        severity: "HIGH",
+        summary: "Civic audit query on former 2-term governor contesting constituency MP seat after exhausting constitutional gubernatorial limit.",
+        status: "Verified Civic Query"
+      }
+    ],
+    isGoodLeaderChampion: false,
+    ties: { uhuru: true, ruto: true, gachagua: false, details: "Former Governor Kwale and former Cabinet Secretary." },
+    votes: { financeBill2024: "YES", financeBill2025: "YES", notes2024: "Cabinet alignment.", notes2025: "Supported government fiscal measures." },
+    bio: "Former 2-Term Governor of Kwale County (2013-2022), Cabinet Secretary, and 2027 Matuga MP Aspirant.",
+    termInOffice: "2013 - 2022 (Governor) / 2022 - 2024 (CS)",
+    keyPositionsHeld: ["Governor Kwale (2 Terms)", "Cabinet Secretary", "2027 MP Aspirant Matuga"],
+    photoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "cand-new-1",
+    name: "Gladys Wanga",
+    position: "Governor",
+    county: "Homa Bay",
+    party: "ODM",
+    isIndependent: false,
+    tagColor: "green",
+    tagReason: "First female Governor of Homa Bay County. Spearheaded local revenue digitization and healthcare worker electrification.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    ethicsAuditScore: 84,
+    eaccQueryStatus: "Cleared",
+    assetDeclarationDisclosed: true,
+    conflictOfInterestFlags: [],
+    wealthGrowthMultiplier: "2.1x growth",
+    parliamentaryAttendanceScore: 92,
+    citizenRatingScore: 4.3,
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Automated county revenue collection boosting own-source revenue by 140%",
+      "Constructed modern maternal health wings across sub-county hospitals",
+      "Pioneered Gen-Z youth vocational sponsorship drive"
+    ],
+    ties: { uhuru: false, ruto: false, gachagua: false, details: "National Vice Chairperson of ODM party." },
+    votes: { financeBill2024: "NO", financeBill2025: "NO", notes2024: "Opposed Finance Bill 2024.", notes2025: "Vocal champion for devolution allocation." },
+    bio: "Governor of Homa Bay County, former Woman Representative for Homa Bay, and Vice Chair of ODM Party.",
+    termInOffice: "2022 - Present",
+    keyPositionsHeld: ["Governor Homa Bay", "Woman Rep Homa Bay", "Chairperson National Assembly Budget Committee"],
+    photoUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "cand-new-2",
+    name: "George Natembeya",
+    position: "Governor",
+    county: "Trans Nzoia",
+    party: "DAPK",
+    isIndependent: false,
+    tagColor: "green",
+    tagReason: "Governor of Trans Nzoia County. Former Rift Valley Regional Commissioner known for strict anti-corruption drive and firm public service reform.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    ethicsAuditScore: 89,
+    eaccQueryStatus: "Cleared",
+    assetDeclarationDisclosed: true,
+    conflictOfInterestFlags: [],
+    wealthGrowthMultiplier: "1.8x growth",
+    parliamentaryAttendanceScore: 95,
+    citizenRatingScore: 4.6,
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Eliminated ghost workers from county payroll saving KSh 320M annually",
+      "Reclaimed grabbed public land reserved for Kitale County Hospital",
+      "Championed direct subsidized fertilizer delivery to maize farmers"
+    ],
+    ties: { uhuru: true, ruto: false, gachagua: false, details: "Former Regional Commissioner under Uhuru Kenyatta administration." },
+    votes: { financeBill2024: "NO", financeBill2025: "NO", notes2024: "Vocal advocate against over-taxation.", notes2025: "Challenged fiscal austerity models." },
+    bio: "Governor of Trans Nzoia County, former Rift Valley Regional Commissioner, and former Senior Administrator.",
+    termInOffice: "2022 - Present",
+    keyPositionsHeld: ["Governor Trans Nzoia", "Rift Valley Regional Commissioner", "County Commissioner"],
+    photoUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "cand-new-3",
+    name: "Oscar Sudi",
+    position: "MP",
+    county: "Uasin Gishu",
+    constituency: "Kapseret Constituency",
+    party: "UDA",
+    isIndependent: false,
+    tagColor: "red",
+    tagReason: "MP for Kapseret. Subject of EACC court prosecution regarding academic certificate forgery and public funds audit inquiries.",
+    corruptionStatus: "charged",
+    corruptionDetails: "Prosecuted in court over alleged forgery of KCSE academic certificate and diploma documents.",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    ethicsAuditScore: 18,
+    eaccQueryStatus: "Prosecuted / Charged",
+    assetDeclarationDisclosed: false,
+    conflictOfInterestFlags: [
+      "EACC Academic Qualification Forgery Case",
+      "Kapseret CDF Tender Award Inquiries"
+    ],
+    wealthGrowthMultiplier: "22x asset surge since 2013",
+    parliamentaryAttendanceScore: 32,
+    citizenRatingScore: 1.6,
+    integrityScandals: [
+      {
+        id: "sc-sudi-1",
+        year: "2022",
+        title: "Academic Certificate Forgery Criminal Trial",
+        severity: "CRITICAL",
+        summary: "Charged in Milimani Law Courts over forging KCSE & diploma documents to satisfy IEBC clearance requirements.",
+        status: "Court Trial",
+        source: "Anti-Corruption Court Docket #ACC-112/2022"
+      }
+    ],
+    isGoodLeaderChampion: false,
+    ties: { uhuru: false, ruto: true, gachagua: false, details: "Close political ally and confidant of President William Ruto." },
+    votes: { financeBill2024: "YES", financeBill2025: "YES", notes2024: "Voted YES to Finance Bill 2024.", notes2025: "Voted YES to executive revenue proposals." },
+    bio: "Member of Parliament for Kapseret Constituency, Uasin Gishu County.",
+    termInOffice: "2013 - Present",
+    keyPositionsHeld: ["MP Kapseret Constituency"],
+    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "cand-new-4",
+    name: "Anne Waiguru",
+    position: "Governor",
+    county: "Kirinyaga",
+    party: "UDA",
+    isIndependent: false,
+    tagColor: "red",
+    tagReason: "Former Chair of Council of Governors. Mentioned in historic NYS I scandal inquiries during her tenure as Devolution CS.",
+    corruptionStatus: "alleged",
+    corruptionDetails: "NYS 1 scandal inquiries (KSh 791M) during Devolution CS tenure & Kirinyaga County assembly impeachment inquiries.",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    ethicsAuditScore: 38,
+    eaccQueryStatus: "Under Active Probe",
+    assetDeclarationDisclosed: false,
+    conflictOfInterestFlags: [
+      "NYS 1 Procurement Audit Queries",
+      "Kirinyaga County Assembly Impeachment Inquiry Records"
+    ],
+    wealthGrowthMultiplier: "9.5x net worth growth",
+    parliamentaryAttendanceScore: 82,
+    citizenRatingScore: 2.5,
+    integrityScandals: [
+      {
+        id: "sc-waiguru-1",
+        year: "2015",
+        title: "NYS Phase 1 KSh 791 Million Loss Probe",
+        severity: "CRITICAL",
+        summary: "Parliamentary Public Accounts Committee investigation into missing funds at National Youth Service.",
+        status: "Under EACC Probe",
+        source: "PAC Report No. 12/2016"
+      }
+    ],
+    isGoodLeaderChampion: false,
+    ties: { uhuru: true, ruto: true, gachagua: false, details: "Former Council of Governors Chair and former Devolution CS." },
+    votes: { financeBill2024: "YES", financeBill2025: "YES", notes2024: "Supported national tax framework.", notes2025: "Aligned with Kenya Kwanza government policy." },
+    bio: "Governor of Kirinyaga County, former Chairperson of Council of Governors, and former Cabinet Secretary for Devolution.",
+    termInOffice: "2017 - Present",
+    keyPositionsHeld: ["Governor Kirinyaga", "Chairperson Council of Governors", "Cabinet Secretary Devolution"],
     photoUrl: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    id: "cand-new-5",
+    name: "Abdulswamad Shariff Nassir",
+    position: "Governor",
+    county: "Mombasa",
+    party: "ODM",
+    isIndependent: false,
+    tagColor: "green",
+    tagReason: "Governor of Mombasa County. Launched automated hospital management systems and port city youth apprenticeship grants.",
+    corruptionStatus: "clean",
+    sexualViolenceStatus: "clean",
+    robberyCrimeStatus: "clean",
+    ethicsAuditScore: 81,
+    eaccQueryStatus: "Cleared",
+    assetDeclarationDisclosed: true,
+    conflictOfInterestFlags: [],
+    wealthGrowthMultiplier: "2.0x growth",
+    parliamentaryAttendanceScore: 88,
+    citizenRatingScore: 4.1,
+    isGoodLeaderChampion: true,
+    goodLeaderHighlights: [
+      "Pioneered free emergency medical care for low-income mothers at Coast General Hospital",
+      "Automated Mombasa port trade permit clearances reducing delay times by 60%",
+      "Established Coast Youth Maritime Skills Sponsorship Fund"
+    ],
+    ties: { uhuru: false, ruto: false, gachagua: false, details: "ODM National Deputy Leader & former Mvita MP." },
+    votes: { financeBill2024: "NO", financeBill2025: "NO", notes2024: "Opposed Finance Bill 2024.", notes2025: "Opposed port tax surcharges." },
+    bio: "Governor of Mombasa County and former Member of Parliament for Mvita Constituency.",
+    termInOffice: "2022 - Present",
+    keyPositionsHeld: ["Governor Mombasa", "MP Mvita Constituency", "Chairperson PIC Committee"],
+    photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
   }
 ];

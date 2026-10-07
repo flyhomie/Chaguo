@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { Candidate, CitizenEvidenceReport } from '../types';
-import { X, CheckCircle2, AlertTriangle, ShieldAlert, Bookmark, BookmarkCheck, FileSpreadsheet, Building2, Award, Sparkles, AlertCircle, Download, ThumbsUp, ThumbsDown, PlusCircle, Scale } from 'lucide-react';
+import { X, CheckCircle2, AlertTriangle, ShieldAlert, Bookmark, BookmarkCheck, FileSpreadsheet, Building2, Award, Sparkles, AlertCircle, Download, ThumbsUp, ThumbsDown, PlusCircle, Scale, FileText, Lock, DollarSign, Image as ImageIcon, Save, Upload, Video, ExternalLink, ChevronRight } from 'lucide-react';
 import { DemonicAvatar } from './DemonicAvatar';
 import { downloadFile } from '../utils/download';
 import { calculateReputation } from '../utils/reputation';
+import { getCandidateIntegrityData } from '../utils/integrity';
+import { useLanguage } from '../context/LanguageContext';
+import { AUDITOR_GENERAL_FINDINGS } from '../data/auditorGeneralFindings';
 
 interface CandidateModalProps {
   candidate: Candidate | null;
@@ -13,6 +16,8 @@ interface CandidateModalProps {
   onAskAIAboutCandidate: (candidate: Candidate) => void;
   evidenceReports?: CitizenEvidenceReport[];
   onOpenAddEvidenceForCandidate?: (candidate: Candidate) => void;
+  onOpenMoneyTrail?: (candidate: Candidate) => void;
+  onUpdatePhoto?: (candidateId: string, photoUrl: string) => void;
 }
 
 export const CandidateModal: React.FC<CandidateModalProps> = ({
@@ -23,27 +28,92 @@ export const CandidateModal: React.FC<CandidateModalProps> = ({
   onAskAIAboutCandidate,
   evidenceReports = [],
   onOpenAddEvidenceForCandidate,
+  onOpenMoneyTrail,
+  onUpdatePhoto,
 }) => {
+  const { t } = useLanguage();
+  const [isPhotoEditorOpen, setIsPhotoEditorOpen] = useState(false);
+  const [photoUrlInput, setPhotoUrlInput] = useState('');
+  const [filePreview, setFilePreview] = useState<string | null>(null);
+  const [photoSuccessMsg, setPhotoSuccessMsg] = useState('');
+
   if (!candidate) return null;
 
   const rep = calculateReputation(candidate, evidenceReports);
 
+  const matchingOagFindings = useMemo(() => {
+    return AUDITOR_GENERAL_FINDINGS.filter(f => 
+      (f.relatedLeaders && f.relatedLeaders.some(l => candidate.name.toLowerCase().includes(l.toLowerCase()) || l.toLowerCase().includes(candidate.name.toLowerCase()))) ||
+      (f.entityOrCounty.toLowerCase().includes(candidate.county.toLowerCase()) && candidate.position.toLowerCase().includes('governor'))
+    );
+  }, [candidate]);
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        alert('File size exceeds 5MB. Please choose a smaller image.');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFilePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSavePhoto = () => {
+    const urlToUse = filePreview || photoUrlInput.trim();
+    if (!urlToUse) return;
+
+    if (onUpdatePhoto) {
+      onUpdatePhoto(candidate.id, urlToUse);
+      setPhotoSuccessMsg('✅ Candidate photo updated!');
+      setTimeout(() => {
+        setPhotoSuccessMsg('');
+        setIsPhotoEditorOpen(false);
+        setFilePreview(null);
+        setPhotoUrlInput('');
+      }, 1000);
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-900/80 backdrop-blur-sm overflow-y-auto">
       <div 
-        className="relative w-full max-w-3xl bg-white dark:bg-neutral-900 border-4 border-neutral-900 dark:border-neutral-700 shadow-2xl text-neutral-900 dark:text-neutral-100 overflow-hidden my-8"
+        className="relative w-full max-w-3xl bg-white dark:bg-neutral-900 border-4 border-neutral-900 dark:border-neutral-700 shadow-2xl text-neutral-900 dark:text-neutral-100 overflow-hidden my-8 rounded-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header Banner */}
         <div className="p-6 bg-neutral-900 dark:bg-neutral-950 text-white border-b-2 border-neutral-900 dark:border-neutral-700">
           <div className="flex items-start justify-between gap-4">
             <div className="flex items-center gap-4">
-              <DemonicAvatar
-                seed={candidate.id}
-                name={candidate.name}
-                tagColor={candidate.tagColor}
-                size="lg"
-              />
+              <div className="relative group shrink-0">
+                {candidate.photoUrl ? (
+                  <img
+                    src={candidate.photoUrl}
+                    alt={candidate.name}
+                    className="w-16 h-16 rounded-2xl object-cover border-2 border-white shadow-md"
+                  />
+                ) : (
+                  <DemonicAvatar
+                    seed={candidate.id}
+                    name={candidate.name}
+                    tagColor={candidate.tagColor}
+                    size="lg"
+                  />
+                )}
+
+                <button
+                  onClick={() => setIsPhotoEditorOpen(!isPhotoEditorOpen)}
+                  className="absolute -bottom-1 -right-1 bg-red-600 text-white p-1 rounded-full border-2 border-white hover:scale-110 transition-all shadow-md"
+                  title="Upload / Update Official Photo"
+                >
+                  <ImageIcon className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
               <div>
                 <div className="flex items-center gap-2 flex-wrap">
                   <h2 className="text-2xl font-black uppercase tracking-tight text-white">
@@ -64,6 +134,12 @@ export const CandidateModal: React.FC<CandidateModalProps> = ({
                       <Award className="w-3.5 h-3.5" /> GOOD LEADER CHAMPION
                     </span>
                   )}
+
+                  {candidate.photoUrl && (
+                    <span className="px-2 py-0.5 bg-emerald-600 text-white text-[10px] font-black uppercase flex items-center gap-1 shadow-xs" title={candidate.photoVerificationDetails || "Verified by System AI & IEBC Criteria"}>
+                      <CheckCircle2 className="w-3.5 h-3.5" /> SYSTEM VERIFIED PHOTO
+                    </span>
+                  )}
                 </div>
                 <p className="text-xs font-bold text-neutral-300 uppercase tracking-wider flex items-center gap-2 mt-1">
                   <Building2 className="w-4 h-4 text-red-500" />
@@ -80,6 +156,63 @@ export const CandidateModal: React.FC<CandidateModalProps> = ({
               <X className="w-5 h-5" />
             </button>
           </div>
+
+          {/* INLINE PHOTO EDITOR DIALOG */}
+          {isPhotoEditorOpen && (
+            <div className="mt-4 p-4 bg-neutral-800 border-2 border-neutral-700 rounded-xl space-y-3 text-xs">
+              <div className="flex items-center justify-between font-black uppercase text-amber-400">
+                <span>📸 Upload Official Candidate Photo</span>
+                <button onClick={() => setIsPhotoEditorOpen(false)} className="text-neutral-400 hover:text-white">×</button>
+              </div>
+
+              {photoSuccessMsg && (
+                <div className="p-2 bg-emerald-600 text-white font-black uppercase text-[10px] rounded">
+                  {photoSuccessMsg}
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-white">
+                <div>
+                  <label className="block text-[10px] uppercase font-bold text-neutral-300 mb-1">
+                    Option A: Choose Image File
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileUpload}
+                    className="w-full text-[10px] p-1.5 bg-neutral-900 border border-neutral-700 rounded-lg"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[10px] uppercase font-bold text-neutral-300 mb-1">
+                    Option B: Paste Image Web URL
+                  </label>
+                  <input
+                    type="url"
+                    value={photoUrlInput}
+                    onChange={(e) => {
+                      setPhotoUrlInput(e.target.value);
+                      setFilePreview(null);
+                    }}
+                    placeholder="https://images.unsplash.com/..."
+                    className="w-full p-2 bg-neutral-900 border border-neutral-700 text-white rounded-lg text-xs"
+                  />
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={handleSavePhoto}
+                  className="px-4 py-1.5 bg-red-600 hover:bg-red-700 text-white font-black uppercase text-[10px] rounded-lg flex items-center gap-1 shadow-md"
+                >
+                  <Save className="w-3.5 h-3.5" />
+                  <span>Save Photo</span>
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Modal Body */}
@@ -231,6 +364,187 @@ export const CandidateModal: React.FC<CandidateModalProps> = ({
               </div>
             </div>
           </div>
+
+          {/* OAG Auditor-General & @civicsnsins Findings Box */}
+          {matchingOagFindings.length > 0 && (
+            <div className="bg-red-50 dark:bg-red-950/40 p-5 border-2 border-red-600 space-y-3 rounded-xl">
+              <div className="flex items-center justify-between border-b border-red-200 dark:border-red-900/60 pb-2">
+                <div className="flex items-center gap-2">
+                  <ShieldAlert className="w-5 h-5 text-red-600 shrink-0" />
+                  <div>
+                    <h3 className="text-xs font-black uppercase text-red-800 dark:text-red-200 tracking-tight flex items-center gap-1.5">
+                      <span>Auditor-General & @civicsnsins Audit Queries Flagged</span>
+                      <span className="px-1.5 py-0.2 bg-red-600 text-white text-[9px] rounded-sm">
+                        {matchingOagFindings.length}
+                      </span>
+                    </h3>
+                    <span className="text-[10px] text-red-600 dark:text-red-400 font-bold block">
+                      Nancy Gathungu OAG Docket & TikTok Forensic Breakdowns
+                    </span>
+                  </div>
+                </div>
+
+                {onOpenMoneyTrail && (
+                  <button
+                    onClick={() => {
+                      onClose();
+                      onOpenMoneyTrail(candidate);
+                    }}
+                    className="px-2.5 py-1 bg-red-600 hover:bg-red-700 text-white text-[10px] font-black uppercase rounded-lg transition-colors flex items-center gap-1 shrink-0"
+                  >
+                    <span>View Audit Hub</span>
+                    <ChevronRight className="w-3 h-3" />
+                  </button>
+                )}
+              </div>
+
+              <div className="space-y-2.5">
+                {matchingOagFindings.map((finding) => (
+                  <div key={finding.id} className="p-3 bg-white dark:bg-neutral-900 border border-red-300 dark:border-red-800 rounded-lg space-y-1.5">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-[10px] font-black uppercase text-red-600 dark:text-red-400">
+                        {finding.categoryLabel}
+                      </span>
+                      <span className="text-xs font-black font-mono text-red-700 dark:text-red-300">
+                        KSh {(finding.amountQuestionedKsh / 1000000).toFixed(1)}M
+                      </span>
+                    </div>
+
+                    <h4 className="text-xs font-black text-neutral-900 dark:text-white uppercase leading-snug">
+                      {finding.title}
+                    </h4>
+
+                    <p className="text-[11px] text-neutral-600 dark:text-neutral-300 leading-relaxed font-medium">
+                      {finding.summary}
+                    </p>
+
+                    <div className="pt-1.5 flex items-center justify-between text-[9px] font-bold text-neutral-500">
+                      <span className="text-pink-600 dark:text-pink-400 flex items-center gap-1">
+                        <Video className="w-3 h-3" /> {finding.tiktokCreatorRef || '@civicsnsins'}
+                      </span>
+                      <span className="font-mono text-neutral-400">{finding.oagReportRef}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Special Red Flag Alert: Term-Limited Governor Running for MP / Lower Seat */}
+          {(candidate.isTermLimitedGovernorRunningForLowerSeat ||
+            ((candidate.position === 'MP' || candidate.position === 'Senator' || candidate.position === 'MCA') &&
+             (candidate.termInOffice?.includes('Governor') || candidate.keyPositionsHeld?.some(k => k.toLowerCase().includes('governor'))))) && (
+            <div className="bg-red-50 dark:bg-red-950/60 p-5 border-4 border-red-600 space-y-3">
+              <div className="flex items-center gap-2 border-b border-red-200 dark:border-red-900 pb-2">
+                <AlertTriangle className="w-5 h-5 text-red-600 animate-bounce shrink-0" />
+                <h3 className="text-sm font-black uppercase text-red-800 dark:text-red-200 tracking-tight">
+                  🚨 CIVIC RED FLAG: 2-Term Governor Contesting MP Seat in 2027
+                </h3>
+              </div>
+              <p className="text-xs font-bold text-red-900 dark:text-red-100 uppercase leading-relaxed">
+                {candidate.termLimitedGovernorDetails ||
+                  `${candidate.name} served as Governor for two full constitutional terms (10 years) and has declared a candidacy for an MP/legislative seat in 2027.`}
+              </p>
+              <div className="bg-white dark:bg-neutral-900 p-3 border-2 border-red-600 text-xs font-bold uppercase space-y-1">
+                <span className="text-neutral-500 font-black text-[9px] block">CIVIC AUDIT RISK ANALYSIS:</span>
+                <ul className="space-y-1 text-neutral-800 dark:text-neutral-200 text-[11px]">
+                  <li className="flex items-center gap-1.5">
+                    <span className="text-red-600 font-black">•</span>
+                    <span><strong>Power Recycling:</strong> Re-entering legislative ranks to retain state machinery, security detail & public payroll access after constitutional executive term limits.</span>
+                  </li>
+                  <li className="flex items-center gap-1.5">
+                    <span className="text-red-600 font-black">•</span>
+                    <span><strong>Audit Evasion Query:</strong> Potential attempt to seek parliamentary privilege / immunity while post-tenure county expenditure audits (CDF/EACC) remain active.</span>
+                  </li>
+                  <li className="flex items-center gap-1.5">
+                    <span className="text-red-600 font-black">•</span>
+                    <span><strong>Constituency CDF Control:</strong> Seeking direct control over National Government Constituency Development Fund (NG-CDF) tenders.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          )}
+
+          {/* Extended EACC & Ethics Audit Metrics */}
+          {(() => {
+            const integ = getCandidateIntegrityData(candidate);
+            return (
+              <div className="bg-white dark:bg-neutral-900 p-5 border-2 border-neutral-900 dark:border-neutral-700 space-y-4">
+                <div className="flex items-center justify-between gap-2 border-b border-neutral-200 dark:border-neutral-800 pb-2">
+                  <h3 className="text-xs font-black uppercase tracking-widest text-neutral-900 dark:text-neutral-100 flex items-center gap-1.5">
+                    <Scale className="w-4 h-4 text-emerald-600" />
+                    EACC, Ethics & Asset Declaration Metrics
+                  </h3>
+                  <span className={`px-2 py-0.5 text-[10px] font-black uppercase ${
+                    integ.riskLevel === 'LOW' ? 'bg-emerald-600 text-white' :
+                    integ.riskLevel === 'MODERATE' ? 'bg-amber-600 text-white' : 'bg-red-600 text-white'
+                  }`}>
+                    RISK LEVEL: {integ.riskLevel}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                  <div className="bg-neutral-100 dark:bg-neutral-800 p-2.5 border border-neutral-300 dark:border-neutral-700">
+                    <span className="text-[9px] font-black text-neutral-500 uppercase block">ETHICS AUDIT INDEX</span>
+                    <span className="font-mono font-black text-lg text-neutral-900 dark:text-neutral-100">{integ.ethicsScore}%</span>
+                  </div>
+
+                  <div className="bg-neutral-100 dark:bg-neutral-800 p-2.5 border border-neutral-300 dark:border-neutral-700">
+                    <span className="text-[9px] font-black text-neutral-500 uppercase block">EACC PROBE STATUS</span>
+                    <span className="font-black text-xs text-red-600 dark:text-red-400">{integ.eaccStatus}</span>
+                  </div>
+
+                  <div className="bg-neutral-100 dark:bg-neutral-800 p-2.5 border border-neutral-300 dark:border-neutral-700">
+                    <span className="text-[9px] font-black text-neutral-500 uppercase block">ASSET DECLARATION</span>
+                    <span className={`font-black text-xs ${integ.assetDeclared ? 'text-emerald-600' : 'text-amber-600'}`}>
+                      {integ.assetDeclared ? 'DISCLOSED' : 'NOT DISCLOSED'}
+                    </span>
+                  </div>
+
+                  <div className="bg-neutral-100 dark:bg-neutral-800 p-2.5 border border-neutral-300 dark:border-neutral-700">
+                    <span className="text-[9px] font-black text-neutral-500 uppercase block">ATTENDANCE RATE</span>
+                    <span className="font-mono font-black text-lg text-neutral-900 dark:text-neutral-100">{integ.attendanceScore}%</span>
+                  </div>
+                </div>
+
+                {integ.conflicts.length > 0 && (
+                  <div className="pt-2">
+                    <span className="text-[10px] font-black uppercase text-amber-600 dark:text-amber-400 block mb-1">
+                      ⚠️ Documented Conflict of Interest Flags ({integ.conflicts.length}):
+                    </span>
+                    <ul className="space-y-1 text-xs font-bold text-neutral-700 dark:text-neutral-300">
+                      {integ.conflicts.map((cf, idx) => (
+                        <li key={idx} className="flex items-center gap-2 bg-amber-50 dark:bg-amber-950/40 p-2 border-l-2 border-amber-500">
+                          <AlertCircle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                          <span>{cf}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {integ.scandals.length > 0 && (
+                  <div className="pt-2">
+                    <span className="text-[10px] font-black uppercase text-red-600 dark:text-red-400 block mb-1">
+                      🚨 Documented Scandals & Parliamentary Inquiries:
+                    </span>
+                    <div className="space-y-2">
+                      {integ.scandals.map((sc) => (
+                        <div key={sc.id} className="p-3 bg-red-50 dark:bg-red-950/30 border border-red-400 dark:border-red-700 text-xs">
+                          <div className="flex justify-between items-center mb-1">
+                            <strong className="font-black text-red-800 dark:text-red-300 uppercase">{sc.title} ({sc.year})</strong>
+                            <span className="px-2 py-0.5 bg-red-600 text-white text-[9px] font-black">{sc.severity}</span>
+                          </div>
+                          <p className="text-neutral-700 dark:text-neutral-300 leading-snug">{sc.summary}</p>
+                          <span className="text-[9px] font-mono text-neutral-500 uppercase block mt-1">Status: {sc.status}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })()}
 
           {/* Development Achievements & Projects Section */}
           {(candidate.isGoodLeaderChampion || (candidate.developmentProjects && candidate.developmentProjects.length > 0)) && (
@@ -420,6 +734,19 @@ ${candidate.documents?.map(d => `- ${d.title}: ${d.url}`).join('\n') || 'Officia
             >
               ASK AI
             </button>
+
+            {onOpenMoneyTrail && (
+              <button
+                onClick={() => {
+                  onClose();
+                  onOpenMoneyTrail(candidate);
+                }}
+                className="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black uppercase tracking-wider transition-colors flex items-center gap-1.5 border-2 border-emerald-700 shadow-sm"
+              >
+                <DollarSign className="w-4 h-4 text-emerald-200" />
+                <span>{t.trackAIPACMoney}</span>
+              </button>
+            )}
           </div>
 
           <div className="flex items-center gap-2 ml-auto">

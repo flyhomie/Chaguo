@@ -17,21 +17,25 @@ import { GoodLeadersView } from './components/GoodLeadersView';
 import { CitizenEvidenceView } from './components/CitizenEvidenceView';
 import { AuthModal, LocalUser } from './components/AuthModal';
 import { AddCandidateModal } from './components/AddCandidateModal';
+import { AddImpactEvidenceModal } from './components/AddImpactEvidenceModal';
+import { OwnerAdminPanelModal } from './components/OwnerAdminPanelModal';
 import { SettingsModal } from './components/SettingsModal';
 import { DonationsModal } from './components/DonationsModal';
 import { PWAPromptModal } from './components/PWAPromptModal';
-import { GoogleDriveModal } from './components/GoogleDriveModal';
 import { LandingPage } from './components/LandingPage';
 import { ElectionCountdownBanner } from './components/ElectionCountdownBanner';
 import { CountyCandidateMap } from './components/CountyCandidateMap';
+import { MoneyTrackAIPACView } from './components/MoneyTrackAIPACView';
 import { BottomNav } from './components/BottomNav';
-import { MapPin, Filter, RotateCcw, ShieldAlert, UserPlus, Smartphone, Download, LayoutGrid, List } from 'lucide-react';
+import { Search, MapPin, Filter, RotateCcw, ShieldAlert, UserPlus, Smartphone, Download, LayoutGrid, List, Wifi, WifiOff, CheckCircle } from 'lucide-react';
+import { useLanguage } from './context/LanguageContext';
+import { preCacheCandidatePhotos, backupLocalDatabase, processOfflineSyncQueue } from './utils/offlineManager';
 
 export default function App() {
+  const { t } = useLanguage();
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isDonationsModalOpen, setIsDonationsModalOpen] = useState(false);
   const [isPWAModalOpen, setIsPWAModalOpen] = useState(false);
-  const [isDriveModalOpen, setIsDriveModalOpen] = useState(false);
   const [isLandingModalOpen, setIsLandingModalOpen] = useState(() => {
     try {
       const dismissed = sessionStorage.getItem('chaguo_landing_dismissed');
@@ -62,6 +66,10 @@ export default function App() {
       localStorage.setItem('chaguo_viewport_preference', viewportMode);
     } catch (e) {}
   }, [viewportMode]);
+
+  const toggleViewportMode = () => {
+    setViewportMode((prev) => (prev === 'auto' ? 'desktop' : prev === 'desktop' ? 'mobile' : 'auto'));
+  };
   // Local candidates state with localStorage persistence
   const [candidates, setCandidates] = useState<Candidate[]>(() => {
     try {
@@ -78,10 +86,82 @@ export default function App() {
     } catch (e) {
       console.error(e);
     }
+    // Automatically pre-cache candidate profile photos & back up local database records
+    preCacheCandidatePhotos(candidates);
+    backupLocalDatabase('candidates', candidates);
+    backupLocalDatabase('evidence_reports', INITIAL_EVIDENCE_REPORTS);
+    backupLocalDatabase('finance_bills', FINANCE_BILL_CLAUSES);
   }, [candidates]);
+
+  // Online / Offline Status & Auto Sync Queue Processing
+  const [isOnline, setIsOnline] = useState<boolean>(() => typeof navigator !== 'undefined' ? navigator.onLine : true);
+  const [offlineSyncMessage, setOfflineSyncMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleOnline = () => {
+      setIsOnline(true);
+      const syncedCount = processOfflineSyncQueue();
+      if (syncedCount > 0) {
+        setOfflineSyncMessage(`🟢 Back Online: Synced ${syncedCount} queued local database updates.`);
+        setTimeout(() => setOfflineSyncMessage(null), 5000);
+      }
+    };
+    const handleOffline = () => {
+      setIsOnline(false);
+    };
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   const handleAddCandidate = (newCandidate: Candidate) => {
     setCandidates((prev) => [newCandidate, ...prev]);
+  };
+
+  const handleUpdateCandidatePhoto = (candidateId: string, photoUrl: string) => {
+    setCandidates((prev) =>
+      prev.map((c) => (c.id === candidateId ? { ...c, photoUrl } : c))
+    );
+    if (selectedCandidateForModal && selectedCandidateForModal.id === candidateId) {
+      setSelectedCandidateForModal((prev) => (prev ? { ...prev, photoUrl } : null));
+    }
+  };
+
+  const handleUpdateCandidateDetails = (updated: Candidate) => {
+    setCandidates((prev) =>
+      prev.map((c) => (c.id === updated.id ? updated : c))
+    );
+    if (selectedCandidateForModal && selectedCandidateForModal.id === updated.id) {
+      setSelectedCandidateForModal(updated);
+    }
+  };
+
+  const handleDeleteCandidate = (candidateId: string) => {
+    setCandidates((prev) => prev.filter((c) => c.id !== candidateId));
+    if (selectedCandidateForModal && selectedCandidateForModal.id === candidateId) {
+      setSelectedCandidateForModal(null);
+    }
+  };
+
+  // Owner Panel & Add Evidence Modal States
+  const [isOwnerAdminModalOpen, setIsOwnerAdminModalOpen] = useState(false);
+  const [isAddEvidenceModalOpen, setIsAddEvidenceModalOpen] = useState(false);
+  const [preSelectedCandidateForEvidence, setPreSelectedCandidateForEvidence] = useState<Candidate | null>(null);
+  const [moneyTrailSelectedCandidateId, setMoneyTrailSelectedCandidateId] = useState<string | null>(null);
+
+  const handleOpenMoneyTrailForCandidate = (candidate: Candidate) => {
+    setMoneyTrailSelectedCandidateId(candidate.id);
+    setActiveTab('money-trail');
+  };
+
+  const handleOpenAddEvidence = (candidate?: Candidate) => {
+    setPreSelectedCandidateForEvidence(candidate || null);
+    setIsAddEvidenceModalOpen(true);
   };
 
   // Local User Authentication State
@@ -318,17 +398,38 @@ export default function App() {
           savedCount={savedCandidateIds.length}
           theme={theme}
           onToggleTheme={toggleTheme}
+          deviceMode={viewportMode}
+          onToggleDeviceMode={toggleViewportMode}
           currentUser={currentUser}
           onOpenAuth={openAuth}
           onOpenAddCandidate={() => setIsAddCandidateModalOpen(true)}
-          onOpenAddEvidence={() => setActiveTab('evidence')}
+          onOpenAddEvidence={() => handleOpenAddEvidence()}
+          onOpenOwnerPanel={() => setIsOwnerAdminModalOpen(true)}
           onOpenPWA={() => setIsPWAModalOpen(true)}
-          onOpenDrive={() => setIsDriveModalOpen(true)}
           onOpenLanding={() => setIsLandingModalOpen(true)}
         />
 
         {/* Live Kenya 2027 Election Countdown Notification Banner */}
         <ElectionCountdownBanner onOpenEducation={() => setActiveTab('education')} />
+
+        {/* Offline Mode Active Banner */}
+        {!isOnline && (
+          <div className="bg-amber-500 text-neutral-950 px-4 py-2 text-xs font-black uppercase flex items-center justify-between border-b-2 border-neutral-900 shadow-sm animate-pulse">
+            <div className="flex items-center gap-2 max-w-[1600px] mx-auto w-full">
+              <WifiOff className="w-4 h-4 shrink-0 text-neutral-950" />
+              <span>⚡ OFFLINE MODE ACTIVE: Candidate Dossiers, Profile Photos & Local Records Cached & Ready.</span>
+            </div>
+          </div>
+        )}
+
+        {offlineSyncMessage && (
+          <div className="bg-emerald-600 text-white px-4 py-2 text-xs font-black uppercase flex items-center justify-between border-b-2 border-neutral-900 shadow-sm">
+            <div className="flex items-center gap-2 max-w-[1600px] mx-auto w-full">
+              <CheckCircle className="w-4 h-4 shrink-0 text-white" />
+              <span>{offlineSyncMessage}</span>
+            </div>
+          </div>
+        )}
 
         {/* Main Content Area */}
         <main
@@ -365,20 +466,20 @@ export default function App() {
                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-4">
                   <div>
                     <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase leading-[0.9] tracking-tighter text-neutral-900 dark:text-neutral-100">
-                      KNOW THE LEADERS YOU <span className="text-red-600">ELECT.</span>
+                      {t.knowTheLeadersTitle.split('ELECT.')[0]} <span className="text-red-600">{t.knowTheLeadersTitle.includes('ELECT.') ? 'ELECT.' : 'UCHAGUZI.'}</span>
                     </h1>
                     <p className="mt-2 text-neutral-600 dark:text-neutral-400 font-bold text-xs sm:text-sm uppercase max-w-2xl">
-                      The 2027 Kenyan Voter Accountability Portal. Track corruption dockets, defilement/rape cases, robbery records, MCA performance, and good leaders doing real development.
+                      {t.knowTheLeadersSub}
                     </p>
                   </div>
 
                   <div className="bg-neutral-900 text-white px-5 py-3 border-2 border-neutral-900 dark:border-neutral-700 flex items-center gap-4 shrink-0">
                     <div>
-                      <div className="text-[9px] font-black uppercase tracking-widest text-neutral-400">Database Total</div>
+                      <div className="text-[9px] font-black uppercase tracking-widest text-neutral-400">{t.databaseTotal}</div>
                       <div className="text-3xl font-black italic tracking-tighter text-red-500">349+</div>
                     </div>
                     <div className="text-xs font-black uppercase leading-tight border-l border-neutral-800 pl-3">
-                      MCAs & Leaders<br/>Tracked
+                      {t.leadersTracked}
                     </div>
                   </div>
                 </div>
@@ -405,6 +506,26 @@ export default function App() {
               <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-700 p-2.5 sm:p-3 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3 font-bold text-xs uppercase">
                 
                 <div className="flex flex-wrap items-center gap-2">
+                  {/* Search Candidate Name Input */}
+                  <div className="flex items-center gap-1.5 bg-neutral-100 dark:bg-neutral-800 px-2.5 py-1.5 border border-neutral-300 dark:border-neutral-700 rounded-xs min-w-[200px] sm:min-w-[240px]">
+                    <Search className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder={t.searchPlaceholder}
+                      className="bg-transparent text-xs font-semibold text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 focus:outline-none w-full"
+                    />
+                    {searchQuery && (
+                      <button
+                        onClick={() => setSearchQuery('')}
+                        className="text-[10px] font-black uppercase text-neutral-500 hover:text-neutral-900 dark:hover:text-white px-1 bg-neutral-200 dark:bg-neutral-700 rounded-xs"
+                      >
+                        ×
+                      </button>
+                    )}
+                  </div>
+
                   {/* County Selector */}
                   <div className="flex items-center gap-1.5 bg-neutral-100 dark:bg-neutral-800 px-2.5 py-1.5 border border-neutral-300 dark:border-neutral-700 rounded-xs">
                     <MapPin className="w-3.5 h-3.5 text-red-600" />
@@ -413,7 +534,7 @@ export default function App() {
                       onChange={(e) => setSelectedCounty(e.target.value)}
                       className="bg-transparent text-xs text-neutral-900 dark:text-neutral-100 font-black uppercase focus:outline-none"
                     >
-                      <option value="all">ALL COUNTIES</option>
+                      <option value="all">{t.allCounties}</option>
                       {KENYAN_COUNTIES.map((ct) => (
                         <option key={ct.code} value={ct.name}>
                           {ct.name} COUNTY
@@ -430,7 +551,7 @@ export default function App() {
                       onChange={(e) => setSelectedPosition(e.target.value as CandidatePosition | 'all')}
                       className="bg-transparent text-xs text-neutral-900 dark:text-neutral-100 font-black uppercase focus:outline-none"
                     >
-                      <option value="all">ALL POSITIONS</option>
+                      <option value="all">{t.allPositions}</option>
                       <option value="MP">MP (CONSTITUENCY)</option>
                       <option value="MCA">MCA (COUNTY WARD)</option>
                       <option value="Senator">SENATOR</option>
@@ -448,7 +569,7 @@ export default function App() {
                       onChange={(e) => setSelectedCrimeFilter(e.target.value as any)}
                       className="bg-transparent text-xs text-neutral-900 dark:text-neutral-100 font-black uppercase focus:outline-none"
                     >
-                      <option value="all">ALL INTEGRITY RECORDS</option>
+                      <option value="all">{t.allIntegrityRecords}</option>
                       <option value="good_leaders">🌟 GOOD LEADERS / CHAMPIONS</option>
                       <option value="corruption">🚨 CORRUPTION CASES</option>
                       <option value="sexual_violence">⚖️ RAPE / DEFILEMENT CASES</option>
@@ -463,7 +584,7 @@ export default function App() {
                       onChange={(e) => setSelectedVoteFilter(e.target.value as any)}
                       className="bg-transparent text-xs text-neutral-900 dark:text-neutral-100 font-black uppercase focus:outline-none"
                     >
-                      <option value="all">ALL FINANCE BILL VOTES</option>
+                      <option value="all">{t.allFinanceBillVotes}</option>
                       <option value="yes2024">FB 2024: VOTED YES</option>
                       <option value="no2024">FB 2024: VOTED NO</option>
                       <option value="yes2025">FB 2025: VOTED YES</option>
@@ -486,7 +607,7 @@ export default function App() {
                       title="Grid View (Dense multi-column - fits max profiles per row)"
                     >
                       <LayoutGrid className="w-3.5 h-3.5" />
-                      <span>GRID</span>
+                      <span>{t.gridView}</span>
                     </button>
                     <button
                       onClick={() => setViewMode('list')}
@@ -498,12 +619,12 @@ export default function App() {
                       title="List View (Horizontal rows)"
                     >
                       <List className="w-3.5 h-3.5" />
-                      <span>LIST</span>
+                      <span>{t.listView}</span>
                     </button>
                   </div>
 
                   <span className="text-neutral-500 font-bold text-xs">
-                    SHOWING <strong className="text-neutral-900 dark:text-neutral-100 font-black">{filteredCandidates.length}</strong> LEADERS
+                    {t.showingLeaders} <strong className="text-neutral-900 dark:text-neutral-100 font-black">{filteredCandidates.length}</strong>
                   </span>
 
                   {(searchQuery || selectedTag !== 'all' || selectedCounty !== 'all' || selectedPosition !== 'all' || selectedVoteFilter !== 'all' || selectedCrimeFilter !== 'all') && (
@@ -511,7 +632,7 @@ export default function App() {
                       onClick={resetFilters}
                       className="px-2.5 py-1 bg-neutral-900 dark:bg-neutral-800 text-white hover:bg-red-600 font-black text-xs uppercase transition-colors flex items-center gap-1 rounded-xs"
                     >
-                      <RotateCcw className="w-3 h-3" /> RESET
+                      <RotateCcw className="w-3 h-3" /> {t.resetFilters}
                     </button>
                   )}
                 </div>
@@ -529,8 +650,14 @@ export default function App() {
                   </button>
                 </div>
               ) : viewMode === 'grid' ? (
-                /* Dense Multi-column Grid: fits as many profiles in a row as possible (2 cols on mobile, 3 on sm, 4 on md, 5 on lg, 6 on xl, 7 on 2xl) */
-                <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-2 sm:gap-3 items-stretch">
+                /* Dense Multi-column Grid tuned per Viewport Mode */
+                <div className={`grid gap-2 sm:gap-3 items-stretch ${
+                  viewportMode === 'mobile'
+                    ? 'grid-cols-1 sm:grid-cols-2'
+                    : viewportMode === 'desktop'
+                    ? 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7'
+                    : 'grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7'
+                }`}>
                   {filteredCandidates.map((candidate) => (
                     <CandidateCard
                       key={candidate.id}
@@ -540,6 +667,7 @@ export default function App() {
                       onToggleSave={toggleSaveCandidate}
                       onCompareToggle={toggleCompareCandidate}
                       isCompared={comparedCandidates.some((c) => c.id === candidate.id)}
+                      onOpenMoneyTrail={() => setActiveTab('money-trail')}
                       viewMode="grid"
                     />
                   ))}
@@ -556,6 +684,7 @@ export default function App() {
                       onToggleSave={toggleSaveCandidate}
                       onCompareToggle={toggleCompareCandidate}
                       isCompared={comparedCandidates.some((c) => c.id === candidate.id)}
+                      onOpenMoneyTrail={() => setActiveTab('money-trail')}
                       viewMode="list"
                     />
                   ))}
@@ -578,7 +707,6 @@ export default function App() {
               reports={evidenceReports}
               onAddReport={handleAddEvidenceReport}
               onUpvote={handleUpvoteReport}
-              onOpenDrive={() => setIsDriveModalOpen(true)}
             />
           )}
 
@@ -626,6 +754,24 @@ export default function App() {
             />
           )}
 
+          {/* TAB 9: MONEY TRAIL (TRACKAIPAC) */}
+          {activeTab === 'money-trail' && (
+            <MoneyTrackAIPACView
+              candidates={candidates}
+              selectedCandidateId={moneyTrailSelectedCandidateId}
+              onSelectCandidate={(cand) => {
+                setSelectedCandidateForModal(cand);
+                setActiveTab('directory');
+              }}
+              onNavigateHome={() => {
+                setActiveTab('directory');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              onOpenAddEvidence={(cand) => handleOpenAddEvidence(cand)}
+              currentUser={currentUser}
+            />
+          )}
+
         </main>
       </div>
 
@@ -636,6 +782,32 @@ export default function App() {
         isSaved={selectedCandidateForModal ? savedCandidateIds.includes(selectedCandidateForModal.id) : false}
         onToggleSave={toggleSaveCandidate}
         onAskAIAboutCandidate={handleAskAIAboutCandidate}
+        evidenceReports={evidenceReports}
+        onOpenAddEvidenceForCandidate={handleOpenAddEvidence}
+        onOpenMoneyTrail={handleOpenMoneyTrailForCandidate}
+        onUpdatePhoto={handleUpdateCandidatePhoto}
+      />
+
+      {/* Add Impact / Citizen Evidence Modal */}
+      <AddImpactEvidenceModal
+        isOpen={isAddEvidenceModalOpen}
+        onClose={() => setIsAddEvidenceModalOpen(false)}
+        candidates={candidates}
+        preSelectedCandidate={preSelectedCandidateForEvidence}
+        onSubmitEvidence={handleAddEvidenceReport}
+      />
+
+      {/* Owner & Admin Control Panel Modal */}
+      <OwnerAdminPanelModal
+        isOpen={isOwnerAdminModalOpen}
+        onClose={() => setIsOwnerAdminModalOpen(false)}
+        candidates={candidates}
+        onUpdateCandidatePhoto={handleUpdateCandidatePhoto}
+        onUpdateCandidateDetails={handleUpdateCandidateDetails}
+        onAddCandidate={handleAddCandidate}
+        onDeleteCandidate={handleDeleteCandidate}
+        evidenceReports={evidenceReports}
+        currentUser={currentUser}
       />
 
       {/* Local Auth Modal */}
@@ -655,6 +827,7 @@ export default function App() {
         isOpen={isAddCandidateModalOpen}
         onClose={() => setIsAddCandidateModalOpen(false)}
         onAddCandidate={handleAddCandidate}
+        onAddEvidenceReport={handleAddEvidenceReport}
       />
 
       {/* Settings Modal */}
@@ -665,13 +838,7 @@ export default function App() {
         onToggleTheme={toggleTheme}
         viewportMode={viewportMode}
         onToggleViewportMode={setViewportMode}
-        onOpenDrive={() => setIsDriveModalOpen(true)}
-      />
-
-      {/* Google Drive Integration Modal */}
-      <GoogleDriveModal
-        isOpen={isDriveModalOpen}
-        onClose={() => setIsDriveModalOpen(false)}
+        onOpenOwnerPanel={() => setIsOwnerAdminModalOpen(true)}
       />
 
       {/* Donations Modal */}
@@ -704,6 +871,7 @@ export default function App() {
         onOpenDonations={() => setIsDonationsModalOpen(true)}
         onOpenPWA={() => setIsPWAModalOpen(true)}
         onOpenAddCandidate={() => setIsAddCandidateModalOpen(true)}
+        onOpenAddEvidence={() => handleOpenAddEvidence()}
         onOpenLanding={() => setIsLandingModalOpen(true)}
         currentUser={currentUser}
       />

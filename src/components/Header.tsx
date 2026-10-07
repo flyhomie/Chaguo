@@ -1,9 +1,10 @@
 import React from 'react';
-import { Search, Filter, Sparkles, BookOpen, ShieldCheck, Layers, UserCheck, Sun, Moon, Award, Upload, UserPlus, LogIn, Download, PlusCircle, Scale, Cloud } from 'lucide-react';
+import { Search, Filter, Sparkles, BookOpen, ShieldCheck, Layers, UserCheck, Sun, Moon, Award, Upload, UserPlus, LogIn, Download, PlusCircle, Scale, DollarSign, Globe, Monitor, Smartphone, Laptop } from 'lucide-react';
 import { LocalUser } from './AuthModal';
 import { DemonicAvatar } from './DemonicAvatar';
+import { useLanguage } from '../context/LanguageContext';
 
-export type TabType = 'directory' | 'good-leaders' | 'evidence' | 'finance-bills' | 'compare' | 'ai-assistant' | 'education' | 'my-ballot';
+export type TabType = 'directory' | 'good-leaders' | 'evidence' | 'finance-bills' | 'compare' | 'ai-assistant' | 'education' | 'my-ballot' | 'money-trail';
 
 interface HeaderProps {
   activeTab: TabType;
@@ -13,12 +14,14 @@ interface HeaderProps {
   savedCount: number;
   theme: 'light' | 'dim' | 'dark';
   onToggleTheme: () => void;
+  deviceMode?: 'auto' | 'desktop' | 'mobile';
+  onToggleDeviceMode?: () => void;
   currentUser: LocalUser | null;
   onOpenAuth: (mode?: 'signin' | 'signup') => void;
   onOpenAddCandidate: () => void;
   onOpenAddEvidence?: () => void;
+  onOpenOwnerPanel?: () => void;
   onOpenPWA?: () => void;
-  onOpenDrive?: () => void;
   onOpenLanding?: () => void;
 }
 
@@ -30,74 +33,79 @@ export const Header: React.FC<HeaderProps> = ({
   savedCount,
   theme,
   onToggleTheme,
+  deviceMode = 'auto',
+  onToggleDeviceMode,
   currentUser,
   onOpenAuth,
   onOpenAddCandidate,
   onOpenAddEvidence,
+  onOpenOwnerPanel,
   onOpenPWA,
-  onOpenDrive,
   onOpenLanding,
 }) => {
+  const { language, toggleLanguage, t } = useLanguage();
+
   return (
     <header className="sticky top-0 z-40 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 border-b-2 border-neutral-900 dark:border-neutral-700 shadow-sm transition-colors">
-      {/* Sleek Minimal Main Bar */}
-      <div className="max-w-[1600px] mx-auto px-2 sm:px-4 lg:px-6 py-2 flex items-center justify-between gap-2 sm:gap-4">
-        {/* Brand Logo */}
-        <div 
-          onClick={() => setActiveTab('directory')}
-          className="flex items-center gap-1.5 cursor-pointer shrink-0"
-        >
-          <div className="text-xl sm:text-2xl font-black tracking-tighter uppercase leading-none text-neutral-900 dark:text-white">
-            CHAGUO<span className="text-red-600">.</span>
+      {/* Symmetrical Main Top Bar */}
+      <div className="max-w-[1600px] mx-auto px-2 sm:px-4 lg:px-6 py-2.5 flex items-center justify-between gap-2 sm:gap-4">
+        {/* Left Wing: Brand Logo & Quick Action */}
+        <div className="flex items-center justify-start gap-3 shrink-0">
+          <div 
+            onClick={() => setActiveTab('directory')}
+            className="flex items-center gap-1.5 cursor-pointer shrink-0"
+          >
+            <div className="text-xl sm:text-2xl font-black tracking-tighter uppercase leading-none text-neutral-900 dark:text-white">
+              CHAGUO<span className="text-red-600">.</span>
+            </div>
+            <span className="bg-red-600 text-white text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-sm hidden xs:inline-block">
+              2027
+            </span>
           </div>
-          <span className="bg-red-600 text-white text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-xs hidden xs:inline-block">
-            2027
-          </span>
+
+          <button
+            onClick={onOpenAddCandidate}
+            className="hidden xl:flex items-center gap-1 px-2.5 py-1.5 bg-red-600/10 hover:bg-red-600/20 text-red-600 dark:text-red-400 border border-red-500/30 rounded-md text-[10px] font-black uppercase transition-colors shrink-0"
+            title="Add New Leader to Database"
+          >
+            <PlusCircle className="w-3.5 h-3.5" />
+            <span>+ Leader</span>
+          </button>
         </div>
 
-        {/* Minimal Search Input */}
-        <div className="flex-1 max-w-lg relative">
-          <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search candidate, county, crime..."
-            className="w-full pl-8 pr-12 py-1.5 bg-neutral-100 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-sm text-xs font-semibold text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 focus:outline-none focus:border-red-600 transition-colors"
-          />
-          {searchQuery && (
-            <button
-              onClick={() => setSearchQuery('')}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-[9px] font-black uppercase text-neutral-500 hover:text-neutral-900 dark:hover:text-white"
-            >
-              Clear
-            </button>
-          )}
-        </div>
+        {/* Right Wing: Balanced Action Controls */}
+        <div className="flex items-center justify-end gap-1.5 shrink-0">
+          {/* Language Toggle Button */}
+          <button
+            onClick={toggleLanguage}
+            className="px-2 py-1.5 bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 rounded-md text-[10px] font-black uppercase transition-colors flex items-center gap-1"
+            title="Badilisha Lugha / Switch Language (English / Kiswahili)"
+          >
+            <Globe className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+            <span>{language === 'en' ? 'ENG' : 'SW'}</span>
+          </button>
 
-        {/* Action Controls */}
-        <div className="flex items-center gap-1.5 shrink-0">
           {/* Welcome Landing & Vote Animation Button */}
           {onOpenLanding && (
             <button
               onClick={onOpenLanding}
-              className="p-1.5 sm:px-2.5 sm:py-1.5 bg-amber-500 hover:bg-amber-600 text-neutral-950 text-[10px] font-black uppercase tracking-wider transition-colors flex items-center gap-1 border border-amber-600 rounded-sm shadow-xs"
+              className="p-1.5 sm:px-2.5 sm:py-1.5 bg-amber-500 hover:bg-amber-600 text-neutral-950 text-[10px] font-black uppercase tracking-wider transition-colors flex items-center gap-1 border border-amber-600 rounded-md shadow-xs"
               title="Watch Vote Animation & Welcome Portal"
             >
               <Sparkles className="w-3.5 h-3.5 fill-neutral-950" />
-              <span className="hidden lg:inline">Vote Animation</span>
+              <span className="hidden lg:inline">Portal</span>
             </button>
           )}
 
           {/* User Account / Sign In Sign Up Button */}
           <button
             onClick={() => onOpenAuth(currentUser ? 'signin' : 'signin')}
-            className={`p-1.5 sm:px-2.5 sm:py-1.5 text-[10px] font-black uppercase tracking-wider transition-colors flex items-center gap-1 border rounded-sm ${
+            className={`p-1.5 sm:px-2.5 sm:py-1.5 text-[10px] font-black uppercase tracking-wider transition-colors flex items-center gap-1 border rounded-md ${
               currentUser
                 ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border-neutral-300 dark:border-neutral-700 hover:border-red-600'
                 : 'bg-red-600 hover:bg-neutral-900 text-white border-red-700'
             }`}
-            title={currentUser ? `Signed in as ${currentUser.username}` : 'Sign In / Sign Up'}
+            title={currentUser ? `Signed in as ${currentUser.username}` : `${t.signIn} / ${t.signUp}`}
           >
             {currentUser ? (
               <>
@@ -107,50 +115,79 @@ export const Header: React.FC<HeaderProps> = ({
             ) : (
               <>
                 <LogIn className="w-3.5 h-3.5" />
-                <span className="hidden xs:inline">Sign In / Register</span>
+                <span className="hidden xs:inline">{t.signIn}</span>
               </>
             )}
-          </button>
-
-          {/* Google Drive Sync Button */}
-          <button
-            onClick={onOpenDrive}
-            className="p-1.5 sm:px-2.5 sm:py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black uppercase tracking-wider transition-colors flex items-center gap-1 border border-blue-700 rounded-sm shadow-xs"
-            title="Google Drive Backup & Evidence Storage"
-          >
-            <Cloud className="w-3.5 h-3.5 text-blue-100" />
-            <span className="hidden xl:inline">Drive</span>
           </button>
 
           {/* Download App (PWA & APK) Button */}
           <button
             onClick={onOpenPWA}
-            className="p-1.5 sm:px-2.5 sm:py-1.5 bg-neutral-900 dark:bg-neutral-800 text-white text-[10px] font-black uppercase tracking-wider hover:bg-red-600 dark:hover:bg-red-600 transition-colors flex items-center gap-1 border border-neutral-800 dark:border-neutral-700 rounded-sm"
+            className="p-1.5 sm:px-2.5 sm:py-1.5 bg-neutral-900 dark:bg-neutral-800 text-white text-[10px] font-black uppercase tracking-wider hover:bg-red-600 dark:hover:bg-red-600 transition-colors flex items-center gap-1 border border-neutral-800 dark:border-neutral-700 rounded-md"
             title="Download Mobile & Desktop App (PWA & Android APK)"
           >
             <Download className="w-3.5 h-3.5 text-red-500 animate-pulse" />
-            <span className="hidden md:inline">App (PWA / APK)</span>
+            <span className="hidden md:inline">{t.installApp}</span>
           </button>
 
-          {/* Theme Toggle Button (Light / Dim / Dark) */}
+          {/* Device View Mode Toggle Button (Desktop / Mobile / Auto) */}
+          {onToggleDeviceMode && (
+            <button
+              onClick={onToggleDeviceMode}
+              className={`px-2.5 py-1.5 border rounded-md text-[10px] font-black uppercase transition-all flex items-center gap-1.5 shadow-xs ${
+                deviceMode === 'desktop'
+                  ? 'bg-blue-600/10 text-blue-600 dark:text-blue-400 border-blue-500/40 hover:bg-blue-600/20'
+                  : deviceMode === 'mobile'
+                  ? 'bg-purple-600/10 text-purple-600 dark:text-purple-400 border-purple-500/40 hover:bg-purple-600/20'
+                  : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border-neutral-300 dark:border-neutral-700 hover:border-red-600'
+              }`}
+              title={`Current View Mode: ${deviceMode.toUpperCase()}. Click to switch between Auto Responsive, Desktop, and Mobile modes.`}
+            >
+              {deviceMode === 'desktop' ? (
+                <>
+                  <Monitor className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                  <span className="hidden sm:inline">DESKTOP</span>
+                </>
+              ) : deviceMode === 'mobile' ? (
+                <>
+                  <Smartphone className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+                  <span className="hidden sm:inline">MOBILE</span>
+                </>
+              ) : (
+                <>
+                  <Laptop className="w-3.5 h-3.5 text-neutral-500" />
+                  <span className="hidden sm:inline">AUTO</span>
+                </>
+              )}
+            </button>
+          )}
+
+          {/* Theme Toggle Button (Light / Dark) */}
           <button
             onClick={onToggleTheme}
-            className="px-2 py-1.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 rounded-sm text-[10px] font-black uppercase hover:border-red-600 transition-colors flex items-center gap-1"
-            aria-label="Toggle Theme"
-            title={`Current theme: ${theme.toUpperCase()}. Click to cycle.`}
+            className="px-2.5 py-1.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 rounded-md text-[10px] font-black uppercase hover:border-red-600 dark:hover:border-red-500 transition-colors flex items-center gap-1.5 shadow-xs"
+            aria-label="Toggle Light and Dark Mode"
+            title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
           >
-            {theme === 'light' && <Sun className="w-3.5 h-3.5 text-amber-500" />}
-            {theme === 'dim' && <Moon className="w-3.5 h-3.5 text-slate-400" />}
-            {theme === 'dark' && <Moon className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />}
-            <span className="hidden sm:inline">{theme}</span>
+            {theme === 'dark' ? (
+              <>
+                <Moon className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                <span className="hidden sm:inline">DARK</span>
+              </>
+            ) : (
+              <>
+                <Sun className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+                <span className="hidden sm:inline">LIGHT</span>
+              </>
+            )}
           </button>
         </div>
       </div>
 
-      {/* Sleek Minimal Nav Tabs */}
+      {/* Symmetrical Centered Nav Tabs */}
       <div className="bg-neutral-50 dark:bg-neutral-950 border-t border-neutral-200 dark:border-neutral-800">
         <div className="max-w-[1600px] mx-auto px-2 sm:px-4 lg:px-6">
-          <nav className="flex items-center gap-1 overflow-x-auto py-1 scrollbar-none text-xs font-bold uppercase tracking-wider">
+          <nav className="flex items-center justify-start md:justify-center gap-1 sm:gap-1.5 overflow-x-auto py-1.5 scrollbar-none text-xs font-bold uppercase tracking-wider">
             <button
               onClick={() => setActiveTab('directory')}
               className={`flex items-center gap-1 px-2.5 py-1 text-[11px] font-black uppercase tracking-wider transition-all border-b-2 shrink-0 ${
@@ -160,7 +197,7 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <Filter className="w-3 h-3" />
-              <span>Directory & Crime Log</span>
+              <span>{t.directory}</span>
             </button>
 
             <button
@@ -172,7 +209,7 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <Award className="w-3 h-3 text-green-600" />
-              <span>Good Leaders 🌟</span>
+              <span>{t.goodLeaders} 🌟</span>
             </button>
 
             <button
@@ -184,7 +221,7 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <Upload className="w-3 h-3 text-red-600" />
-              <span>Evidence 📁</span>
+              <span>{t.evidence} 📁</span>
             </button>
 
             <button
@@ -196,7 +233,19 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <Layers className="w-3 h-3 text-red-600" />
-              <span>Finance Bills</span>
+              <span>{t.financeBills}</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('money-trail')}
+              className={`flex items-center gap-1 px-2.5 py-1 text-[11px] font-black uppercase tracking-wider transition-all border-b-2 shrink-0 ${
+                activeTab === 'money-trail'
+                  ? 'border-red-600 text-red-600 dark:text-red-400 bg-red-500/10'
+                  : 'border-transparent text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
+              }`}
+            >
+              <DollarSign className="w-3 h-3 text-emerald-500" />
+              <span>{t.moneyTrail} 💵</span>
             </button>
 
             <button
@@ -208,7 +257,7 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <ShieldCheck className="w-3 h-3" />
-              <span>Compare</span>
+              <span>{t.compare}</span>
             </button>
 
             <button
@@ -220,7 +269,7 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <Sparkles className="w-3 h-3 text-red-600" />
-              <span>AI Assistant</span>
+              <span>{t.aiAssistant}</span>
             </button>
 
             <button
@@ -232,25 +281,36 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <BookOpen className="w-3 h-3" />
-              <span>Voter Rights</span>
+              <span>{t.education}</span>
             </button>
 
             <button
               onClick={() => setActiveTab('my-ballot')}
-              className={`flex items-center gap-1 px-2.5 py-1 text-[11px] font-black uppercase tracking-wider transition-all ml-auto shrink-0 rounded-xs ${
+              className={`flex items-center gap-1 px-2.5 py-1 text-[11px] font-black uppercase tracking-wider transition-all border-b-2 shrink-0 rounded-xs ${
                 activeTab === 'my-ballot'
-                  ? 'bg-red-600 text-white'
-                  : 'bg-neutral-900 dark:bg-neutral-800 text-white hover:bg-neutral-800'
+                  ? 'border-red-600 bg-red-600 text-white'
+                  : 'border-transparent bg-neutral-900 dark:bg-neutral-800 text-white hover:bg-neutral-800'
               }`}
             >
               <UserCheck className="w-3 h-3" />
-              <span>My Ballot</span>
+              <span>{t.myBallot}</span>
               {savedCount > 0 && (
                 <span className="ml-1 bg-white text-neutral-900 font-black text-[9px] px-1 py-0.2 rounded-xs">
                   {savedCount}
                 </span>
               )}
             </button>
+
+            {onOpenOwnerPanel && (
+              <button
+                onClick={onOpenOwnerPanel}
+                className="flex items-center gap-1 px-2.5 py-1 text-[11px] font-black uppercase tracking-wider transition-all border-b-2 shrink-0 rounded-xs bg-amber-500 hover:bg-amber-600 text-neutral-950 font-black shadow-xs"
+                title="Owner & Admin Control Panel"
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-neutral-950" />
+                <span>Owner Panel 👑</span>
+              </button>
+            )}
           </nav>
         </div>
       </div>

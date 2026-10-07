@@ -30,10 +30,26 @@ export function calculateReputation(candidate: Candidate, reports: CitizenEviden
   if (candidate.votes.financeBill2025 === 'YES') baseScore -= 12;
   if (candidate.votes.financeBill2025 === 'NO') baseScore += 8;
 
-  // Legal status deductions
+  // Legal & EACC status deductions
   if (candidate.corruptionStatus && candidate.corruptionStatus !== 'clean') baseScore -= 25;
   if (candidate.sexualViolenceStatus && candidate.sexualViolenceStatus !== 'clean') baseScore -= 35;
   if (candidate.robberyCrimeStatus && candidate.robberyCrimeStatus !== 'clean') baseScore -= 30;
+
+  if (candidate.eaccQueryStatus === 'Assets Frozen' || candidate.eaccQueryStatus === 'Prosecuted / Charged') {
+    baseScore -= 20;
+  } else if (candidate.eaccQueryStatus === 'Under Active Probe' || candidate.eaccQueryStatus === 'Wealth Audit Flagged') {
+    baseScore -= 12;
+  } else if (candidate.eaccQueryStatus === 'Cleared') {
+    baseScore += 5;
+  }
+
+  if (candidate.assetDeclarationDisclosed) {
+    baseScore += 5;
+  }
+
+  if (candidate.conflictOfInterestFlags && candidate.conflictOfInterestFlags.length > 0) {
+    baseScore -= candidate.conflictOfInterestFlags.length * 5;
+  }
 
   // Calculate user-submitted evidence score impact
   let goodCount = 0;
